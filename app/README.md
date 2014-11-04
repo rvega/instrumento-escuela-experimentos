@@ -1,6 +1,8 @@
-Instrumento musical web para la Escuela de Experimentos de Medellín Vive la Música. 
+## Instrumento Musical Escuela de Experimentos.
 
-## Ambiente de desarrollo
+Instrumento musical pedagógico versión web para la Escuela de Experimentos de Medellín Vive la Música. 
+
+### Ambiente de desarrollo
 
 El esqueleto de la aplicación fué creado con el [webapp generator](https://github.com/yeoman/generator-webapp) de [yeoman](http://yeoman.io/). Se deben instalar algúnos prerequisitos:
 
@@ -22,7 +24,7 @@ grunt wiredep
 grunt --help
 ```
 
-## Licencia
+### Licencia
 
 Instrumento músical web para La Escuela de Experimentos de Medellín 
 Vive la Música.

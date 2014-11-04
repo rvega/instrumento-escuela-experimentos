@@ -2,7 +2,7 @@
 <html>
 <head>
    <meta charset="utf-8">
-   <title>My App</title>
+   <title>Instrumento Escuela de Experimentos</title>
 
    <!-- build:css(.) styles/vendor.css -->
    <!-- bower:css -->
@@ -10,11 +10,11 @@
    <!-- endbuild -->
 
    <!-- build:css(.tmp) styles/main.css -->
-   <link rel="stylesheet" href="styles/main.css">
+   <!-- <link rel="stylesheet" href="styles/main.css"> -->
    <!-- endbuild -->
 </head>
 <body>
-   <p>Hi, look at the js console.</p>
+   <div id="instrumento"></div>
 
    <!-- build:js(.) scripts/vendor.js -->
    <!-- bower:js -->
@@ -22,18 +22,18 @@
    <!-- endbower -->
    <!-- endbuild -->
 
-   <!-- build:js({app,.tmp}) scripts/my-app.js -->
-   <script src="scripts/Monkey.js"></script>
-   <script src="scripts/AppController.js"></script>
+   <!-- build:js({app,.tmp}) scripts/instrumento-escuela-experimentos.js -->
+   <script src="scripts/MixinInstrumentoMonofonico.js"></script>
+   <script src="scripts/InstrumentoBajo.js"></script>
+   <script src="scripts/AudioGraph.js"></script>
+   <script src="scripts/App.js"></script>
    <!-- endbuild -->
 
    <script type="text/javascript" charset="utf-8">
-      /** 
-       * This is the main entry point for the program.
-       */
       window.onload = function(e){
-         controller = new AppController();
-         controller.init();
+         app = new EscuelaDeExperimentos.App({
+            htmlElementId:'instrumento'
+         });
       }
    </script>
 </body>
