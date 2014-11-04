@@ -18,8 +18,8 @@
 
    <!-- build:js(.) scripts/vendor.js -->
    <!-- bower:js -->
-   <script src="bower_components/jquery/dist/jquery.js"></script>
    <!-- endbower -->
+   <script src="vendors/web-audio-monkey-patch/webkitAudioContextMonkeyPatch.js"></script>
    <!-- endbuild -->
 
    <!-- build:js({app,.tmp}) scripts/instrumento-escuela-experimentos.js -->
@@ -34,6 +34,9 @@
          app = new EscuelaDeExperimentos.App({
             htmlElementId:'instrumento'
          });
+
+         // Esto debe ser establecido por la GUI, mientrastanto aqui.
+         app.audioGraph.instrumentos.bajo.secuencia = [0, 1, 2, 3, 4, 5, 6,7, 8,9,10, 0, 9,8,7,6,5];
       }
    </script>
 </body>

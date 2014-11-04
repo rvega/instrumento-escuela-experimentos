@@ -1,0 +1,3 @@
+[submodule "app/vendors/web-audio-monkey-patch"]
+	path = app/vendors/web-audio-monkey-patch
+	url = https://github.com/cwilso/webkitAudioContext-MonkeyPatch.git

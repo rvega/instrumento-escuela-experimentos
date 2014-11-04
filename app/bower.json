@@ -2,6 +2,8 @@
   "name": "my-app",
   "private": true,
   "dependencies": {
+  },
+  "disabled_dependencies": {
     "jquery": "~2.1.1"
   }
 }
