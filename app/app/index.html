@@ -12,12 +12,19 @@
    <!-- build:css(.tmp) styles/main.css -->
    <!-- <link rel="stylesheet" href="styles/main.css"> -->
    <!-- endbuild -->
+
+   <style type="text/css" media="all">
+      body{
+         margin, padding: 0;
+      }   
+   </style>
 </head>
 <body>
    <div id="instrumento"></div>
 
    <!-- build:js(.) scripts/vendor.js -->
    <!-- bower:js -->
+   <script src="bower_components/pixi/bin/pixi.dev.js"></script>
    <!-- endbower -->
    <script src="vendors/web-audio-monkey-patch/webkitAudioContextMonkeyPatch.js"></script>
    <!-- endbuild -->
@@ -26,6 +33,10 @@
    <script src="scripts/MixinInstrumentoMonofonico.js"></script>
    <script src="scripts/InstrumentoBajo.js"></script>
    <script src="scripts/AudioGraph.js"></script>
+
+   <script src="scripts/InstrumentoBajoView.js"></script>
+   <script src="scripts/MainView.js"></script>
+
    <script src="scripts/App.js"></script>
    <!-- endbuild -->
 

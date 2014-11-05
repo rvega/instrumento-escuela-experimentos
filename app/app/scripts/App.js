@@ -11,7 +11,6 @@
 
    /** 
     * Constructor del objeto App que encapsula toda la aplicación.  
-    * @param htmlElementId
     * @constructor App
     */
    var App = function(params){
@@ -20,9 +19,12 @@
          console.error('EscuelaDeExperimentos.App(): Necesito un elemento html donde dibujar.');
          return;
       }
-      this.htmlElementId = p.htmlElementId;
 
       this.audioGraph = new EscuelaDeExperimentos.AudioGraph();
+      this.mainView = new EscuelaDeExperimentos.MainView({
+         audioGraph: this.audioGraph,
+         htmlElementId: p.htmlElementId
+      });
    };
    global.EscuelaDeExperimentos.App = App;
    

@@ -28,19 +28,19 @@
 
 
       /** 
-       * Array que contiene los nodos de la gráfica de audio
-       * @member instrumentos
-       * @private
-       */
-      this.instrumentos = {};
-
-
-      /** 
        * Periodo para correr el planificador de eventos. Segundos
        * @member periodoTick
        * @private
        */
       this.periodoTick = p.periodoTick || 0.050;
+
+
+      /** 
+       * Array que contiene los nodos de la gráfica de audio
+       * @member instrumentos
+       * @private
+       */
+      this.instrumentos = {};
 
 
       // Crear instancias de los instrumentos y conectarlos.
