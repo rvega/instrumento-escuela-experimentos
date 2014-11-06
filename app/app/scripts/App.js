@@ -15,7 +15,7 @@
     */
    var App = function(params){
       var p = params || {};
-      if(!p.htmlElementId){
+      if(!p.htmlContainer){
          console.error('EscuelaDeExperimentos.App(): Necesito un elemento html donde dibujar.');
          return;
       }
@@ -23,24 +23,8 @@
       this.audioGraph = new EscuelaDeExperimentos.AudioGraph();
       this.mainView = new EscuelaDeExperimentos.MainView({
          audioGraph: this.audioGraph,
-         htmlElementId: p.htmlElementId
+         htmlContainer: p.htmlContainer
       });
    };
    global.EscuelaDeExperimentos.App = App;
-   
-
-   /**
-    * Para mezclar un mixin con un objeto.
-    * @function mixin
-    */
-   var mixin = function(elObjeto, elMixin){
-      for(var key in elMixin){
-         if(elMixin.hasOwnProperty(key) && !elObjeto[key]){
-            elObjeto[key] = elMixin[key];
-         }
-      }
-   }
-   global.EscuelaDeExperimentos.mixin = mixin;
-   
-
 })(this);

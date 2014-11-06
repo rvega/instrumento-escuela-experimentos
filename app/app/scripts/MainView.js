@@ -1,4 +1,5 @@
 /* global EscuelaDeExperimentos */
+/* global PIXI */
 
 (function(global){
    'use strict';
@@ -17,7 +18,6 @@
        */
       this.audioGraph = p.audioGraph;
 
-
       /** 
        * Array que contiene los otros views
        * @member views
@@ -25,17 +25,46 @@
        */
       this.subViews = {};
 
+      /** 
+       * Elemento HTML
+       * @member htmlContainer
+       * @private
+       */
+      this.htmlContainer = p.htmlContainer;
 
+      /** 
+       * Tamaño
+       * @member ancho
+       * @private
+       */
+      this.ancho = p.ancho || window.innerWidth;
+
+      /** 
+       * Tamaño
+       * @member alto
+       * @private
+       */
+      this.alto = p.alto || window.innerHeight;
+
+      this.initStage();
+      this.initSubviews();
+   };
+
+   MainView.prototype.initStage = function(){
       // Superficie de dibujo de PIXI. http://www.pixijs.com/
-      var w = window.innerWidth;
-      var h = window.innerHeight;
       this.stage = new PIXI.Stage(0x222222);
-      this.renderer = new PIXI.autoDetectRecommendedRenderer(w,h,{
-         antialias:true 
-      });
-      var container = document.getElementById(p.htmlElementId);
+      // this.renderer = new PIXI.autoDetectRecommendedRenderer(
+      this.renderer = new PIXI.WebGLRenderer(
+      // this.renderer = new PIXI.CanvasRenderer(
+         this.ancho,
+         this.alto,
+         { antialias:true }
+      );
+      var container = document.getElementById(this.htmlContainer);
       container.appendChild(this.renderer.view);
+   };
 
+   MainView.prototype.initSubviews = function(){
       // Crear instancias de los views.
       var unBajo = new EscuelaDeExperimentos.InstrumentoBajoView({
          audioInstrumento: this.audioGraph.instrumentos.bajo,
@@ -48,14 +77,14 @@
    };
 
    MainView.prototype.render = function(){
+      this.renderer.render(this.stage);
+
       var tiempoAudio = this.audioGraph.audioContext.currentTime;
       for(var subView in this.subViews){
          this.subViews[subView].update(tiempoAudio);
       }
 
-      this.renderer.render(this.stage);
-
-      // window.requestAnimationFrame(this.render.bind(this));
+      window.requestAnimationFrame(this.render.bind(this));
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

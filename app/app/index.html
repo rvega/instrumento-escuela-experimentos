@@ -30,6 +30,8 @@
    <!-- endbuild -->
 
    <!-- build:js({app,.tmp}) scripts/instrumento-escuela-experimentos.js -->
+   <script src="scripts/Utility.js"></script>
+
    <script src="scripts/MixinInstrumentoMonofonico.js"></script>
    <script src="scripts/InstrumentoBajo.js"></script>
    <script src="scripts/AudioGraph.js"></script>
@@ -43,7 +45,7 @@
    <script type="text/javascript" charset="utf-8">
       window.onload = function(e){
          app = new EscuelaDeExperimentos.App({
-            htmlElementId:'instrumento'
+            htmlContainer:'instrumento'
          });
 
          // Esto debe ser establecido por la GUI, mientrastanto aqui.

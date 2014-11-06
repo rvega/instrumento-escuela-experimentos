@@ -1,4 +1,5 @@
 /* global EscuelaDeExperimentos */
+/* global AudioContext */
 
 (function(global){
    'use strict';
@@ -44,11 +45,11 @@
 
 
       // Crear instancias de los instrumentos y conectarlos.
-      var unBajo = new EscuelaDeExperimentos.InstrumentoBajo({
-         audioGraph: this
-      });
-      unBajo.conectar(this.audioContext.destination);
-      this.instrumentos.bajo = unBajo;
+      // var unBajo = new EscuelaDeExperimentos.InstrumentoBajo({
+      //    audioGraph: this
+      // });
+      // unBajo.conectar(this.audioContext.destination);
+      // this.instrumentos.bajo = unBajo;
 
       
       // Ejecutar el planificador de eventos cada periodo
@@ -61,10 +62,10 @@
     * @method
     */
    AudioGraph.prototype.tick = function(){
-      var tiempoAudio = this.audioContext.currentTime;
-      for(var instrumento in this.instrumentos){
-         this.instrumentos[instrumento].programarNotas(tiempoAudio);
-      }
+      // var tiempoAudio = this.audioContext.currentTime;
+      // for(var instrumento in this.instrumentos){
+      //    this.instrumentos[instrumento].programarNotas(tiempoAudio);
+      // }
    };
 
    // /**

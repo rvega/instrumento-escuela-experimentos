@@ -1,3 +1,5 @@
+/* global EscuelaDeExperimentos */
+
 (function(global){
    'use strict';
 
@@ -33,10 +35,11 @@
        */
       this.descarga = p.descarga || 0.20;
 
-      // Heredar los métodos y propiedades de MixinInstrumentoMonofonico
-      EscuelaDeExperimentos.mixin(this, EscuelaDeExperimentos.MixinInstrumentoMonofonico);
       this.initInstrumentoMonofonico(params);
    };
+   
+   // Heredar los métodos y propiedades de MixinInstrumentoMonofonico
+   EscuelaDeExperimentos.Utility.mixin(InstrumentoBajo.prototype, EscuelaDeExperimentos.MixinInstrumentoMonofonico);
 
    /** 
     * Suena una nota.
@@ -50,7 +53,7 @@
       this.gain.gain.linearRampToValueAtTime(1, tiempo+this.ataque);
 
       this.gain.gain.linearRampToValueAtTime(0, tiempo + duracion*0.5 + this.descarga);
-   }
+   };
 
 
    /** 

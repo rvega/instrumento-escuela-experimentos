@@ -70,8 +70,9 @@
     * @method tocarNota
     */
    MixinInstrumentoMonofonico.tocarNota = function(tiempo, duracion, frecuencia){
-      console.error("MixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"tocarNota\"");
-   }
+      // jshint unused:false
+      console.error('MixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"tocarNota\"');
+   };
 
 
    /** 
@@ -85,7 +86,7 @@
       var duracionNota = 60.0/bpm;
       var freq;
       while(this.tiempoNotaProxima < tiempo+this.tiempoMirarFuturo){
-         if(this.secuencia[this.notaActual] != 0){
+         if(this.secuencia[this.notaActual] !== 0){
             freq = this.notas[ this.secuencia[this.notaActual] ];
             this.tocarNota(this.tiempoNotaProxima, duracionNota, freq);
          }
@@ -94,7 +95,7 @@
          this.tiempoNotaProxima += duracionNota; 
 
          this.notaActual ++;
-         if(this.notaActual == this.secuencia.length){
+         if(this.notaActual === this.secuencia.length){
             this.notaActual = 0;
          }
       }
@@ -106,7 +107,8 @@
     * @method
     */
    MixinInstrumentoMonofonico.conectar = function(nodo){
-      console.error("MixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"conectar\"");
+      // jshint unused:false
+      console.error('MixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"conectar\"');
    };
    
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
