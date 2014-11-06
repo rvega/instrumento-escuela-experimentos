@@ -27,7 +27,7 @@
     "node": ">=0.10.0"
   },
   "removedDependencies_RVG": {
-     "grunt-contrib-imagemin": "^0.8.0",
-     "grunt-mocha": "^0.4.10"
+    "grunt-contrib-imagemin": "^0.8.0",
+    "grunt-mocha": "^0.4.10"
   }
 }

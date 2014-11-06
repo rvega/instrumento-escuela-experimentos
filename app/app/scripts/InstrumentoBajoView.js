@@ -1,4 +1,4 @@
-/* global PIXI */
+/* global Kinetic */
 
 (function(global){
    'use strict';
@@ -19,7 +19,7 @@
        * @member audioinstrumento
        * @private
        */
-      this.audioinstrumento = p.audioinstrumento;
+      this.audioInstrumento = p.audioInstrumento;
 
       /** 
        * Cada elemento de este array es una "columna" o "radio" de botones 
@@ -28,7 +28,14 @@
        */
       this.botones = [];
 
+      /** 
+       * @member columnaDestacada
+       * @private
+       */
+      this.columnaDestacada = 0;
+
       this.dibujar();
+      this.destacarColumna(0, true);
    };
 
    /** 
@@ -36,17 +43,16 @@
     * @private
     */
    InstrumentoBajoView.prototype.clickBoton = function(e){
-      // console.log(e.target.columna + ' ' + e.target.fila);
-      e.target.tint = 0x333333;
-   };
-
-   /** 
-    * @function hoverBoton
-    * @private
-    */
-   InstrumentoBajoView.prototype.hoverBoton = function(e){
-      // debugger;
-      // e.target.tint = 0x333333;
+      var btn = e.target;
+      if(!btn.activo){
+         btn.fill('#333333');
+         btn.activo = true;
+      }
+      else{
+         btn.fill('#FFFFFF');
+         btn.activo = false;
+      }
+      btn.draw();
    };
 
    /** 
@@ -61,7 +67,7 @@
       angulo *= -1; // rotación hacia la derecha
       var x = w/2 + radio*Math.cos(angulo*Math.PI/180);
       var y = w/2 - radio*Math.sin(angulo*Math.PI/180);
-      return new PIXI.Point(x, y);
+      return {x:x, y:y};
    };
 
    /** 
@@ -70,24 +76,24 @@
     */
    InstrumentoBajoView.prototype.dibujar = function(){
       var stage = this.superView.stage;
+      var layer = new Kinetic.Layer();
       var w = this.superView.ancho;
 
       // Magnitudes botones en radio
-      var cuantosBotonesPorRadio = 10;
+      var cuantosBotonesPorRadio = this.audioInstrumento.notas.length;
       var radioOffset = w/10;
       var espacioBotonRadio = (w/2-radioOffset)/cuantosBotonesPorRadio;
       console.log(espacioBotonRadio);
       var tamanoBotonRadio = 0.80*espacioBotonRadio;
 
       // Magnitudes botones en angulo
-      var cuantosBotonesPorVuelta = 16;
+      var cuantosBotonesPorVuelta = this.audioInstrumento.secuencia.length;
       var espacioBotonAngulo = 360/cuantosBotonesPorVuelta;
       var tamanoBotonAngulo = 0.9*espacioBotonAngulo;
 
-      // var radio=0;
-      for(var radio=0; radio<cuantosBotonesPorRadio; radio++) {
+      for(var angulo=0; angulo<cuantosBotonesPorVuelta; angulo++) {
          var columna = [];
-         for(var angulo=0; angulo<cuantosBotonesPorVuelta; angulo++) {
+         for(var radio=0; radio<cuantosBotonesPorRadio; radio++) {
             var r = radio*espacioBotonRadio;
             var a = angulo*espacioBotonAngulo;
 
@@ -121,34 +127,76 @@
             var p10 = this.polar2cart(a-tamanoBotonAngulo/2, 
                          radioOffset + r);
 
-            var b = new PIXI.Graphics();
-            b.beginFill(0xFFFFFF, 1);
-            b.lineStyle(1, 0xFF0000, 1);
-            b.drawPolygon([p1,p2,p3,p4,p5,p6,p7,p8,p9,p10]);
-            b.endFill();
+            var b = new Kinetic.Line({
+               fill:'white',
+               stroke: 'red',
+               strokeWidth: 1,
+               closed: true,
+               points: [p1.x, p1.y, 
+                  p2.x, p2.y, 
+                  p3.x, p3.y,  
+                  p4.x, p4.y, 
+                  p5.x, p5.y,  
+                  p6.x, p6.y, 
+                  p7.x, p7.y,  
+                  p8.x, p8.y, 
+                  p9.x, p9.y,  
+                  p10.x, p10.y]
+            });
          
             b.columna = radio;
             b.fila = angulo;
-
-            b.interactive = true;
-            b.buttonMode = true;
-            b.mouseup = b.touchstart = this.clickBoton.bind(this);
-            b.mouseover = this.hoverBoton.bind(this);
-
-            stage.addChild(b);
-
+            b.activo = false;
+            b.on('mousedown', this.clickBoton.bind(this));
+            layer.add(b);
             columna.push(b);
          }
          this.botones.push(columna);
       }
+      stage.add(layer);
    };
 
+   /** 
+    * @function destacarColumna
+    * @private
+    */
+   InstrumentoBajoView.prototype.destacarColumna = function(cualColumna, bool){
+      var columna = this.botones[cualColumna];
+      var len = columna.length;
+      for(var i=0; i<len; i++){
+         var boton = columna[i];
+         if(boton.activo && bool===true){
+            boton.fill('#553333');
+         }
+         else if(!boton.activo && bool===true){
+            boton.fill('#FF0000');
+         }
+         else if(boton.activo && !bool){
+            boton.fill('#333333');
+         }
+         else{
+            boton.fill('#FFFFFF');
+         }
+         boton.draw();
+      }
+   };
+
+   /** 
+    * @function update
+    * @public
+    */
    InstrumentoBajoView.prototype.update = function(tiempoAudio){
-      // console.debug(tiempoAudio);
-      // console.debug('update bajo');
-      // this.rect.position.x ++;
-      // this.rect.tint = 0x333333;
-      // console.log(this.rect.tint);
+      var i = this.audioInstrumento;
+      var duracionNota = 60/i.audioGraph.tempo;
+      var duracionLoop = duracionNota * i.secuencia.length;
+      var tiempo = tiempoAudio % duracionLoop;
+      var cualColumna = Math.floor(tiempo/duracionNota);
+      if(cualColumna !== this.columnaDestacada){
+         this.destacarColumna(this.columnaDestacada, false);
+         this.destacarColumna(cualColumna, true);
+
+         this.columnaDestacada = cualColumna;
+      }
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

@@ -14,9 +14,12 @@
    <!-- endbuild -->
 
    <style type="text/css" media="all">
-      body{
-         margin, padding: 0;
+      html, body{
+         margin: 0px;
+         padding: 0px;
+         background-color: #333;
       }   
+      
    </style>
 </head>
 <body>
@@ -24,7 +27,7 @@
 
    <!-- build:js(.) scripts/vendor.js -->
    <!-- bower:js -->
-   <script src="bower_components/pixi/bin/pixi.dev.js"></script>
+   <script src="bower_components/kineticjs/kinetic.js"></script>
    <!-- endbower -->
    <script src="vendors/web-audio-monkey-patch/webkitAudioContextMonkeyPatch.js"></script>
    <!-- endbuild -->
@@ -49,7 +52,7 @@
          });
 
          // Esto debe ser establecido por la GUI, mientrastanto aqui.
-         app.audioGraph.instrumentos.bajo.secuencia = [0, 1, 2, 3, 4, 5, 6,7, 8,9,10, 0, 9,8,7,6,5];
+         // app.audioGraph.instrumentos.bajo.secuencia = [0, 1, 2, 3, 4, 5, 6,7, 8,9,10, 0, 9,8,7,6,5];
       }
    </script>
 </body>

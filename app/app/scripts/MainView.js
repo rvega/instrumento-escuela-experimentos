@@ -1,12 +1,12 @@
 /* global EscuelaDeExperimentos */
-/* global PIXI */
+/* global Kinetic */
 
 (function(global){
    'use strict';
 
    /** 
     * Objeto gráfico principal, contiene las instancias de otras vistas,
-    * se encarga del loop de animación, dibujar, etc.
+    * se encarga del loop de animación, dibujar, eventos de mouse, etc.
     * @constructor MainView
     */
    var MainView = function(params){
@@ -17,6 +17,13 @@
        * @public
        */
       this.audioGraph = p.audioGraph;
+
+      /** 
+       * Superficie de dibujo
+       * @member stage
+       * @private
+       */
+      this.stage = null;
 
       /** 
        * Array que contiene los otros views
@@ -51,17 +58,12 @@
    };
 
    MainView.prototype.initStage = function(){
-      // Superficie de dibujo de PIXI. http://www.pixijs.com/
-      this.stage = new PIXI.Stage(0x222222);
-      // this.renderer = new PIXI.autoDetectRecommendedRenderer(
-      this.renderer = new PIXI.WebGLRenderer(
-      // this.renderer = new PIXI.CanvasRenderer(
-         this.ancho,
-         this.alto,
-         { antialias:true }
-      );
-      var container = document.getElementById(this.htmlContainer);
-      container.appendChild(this.renderer.view);
+      // Superficie de dibujo de Kinetic. http://www.kineticjs.com/
+      this.stage = new Kinetic.Stage({
+         container:this.htmlContainer,
+         width: this.ancho,
+         height: this.alto
+      });
    };
 
    MainView.prototype.initSubviews = function(){
@@ -72,19 +74,17 @@
       });
       this.subViews.bajo = unBajo;
 
-      // Render manualmente la primera vez
-      this.render();
+      // Update manualmente la primera vez
+      this.update();
    };
 
-   MainView.prototype.render = function(){
-      this.renderer.render(this.stage);
-
+   MainView.prototype.update = function(){
       var tiempoAudio = this.audioGraph.audioContext.currentTime;
       for(var subView in this.subViews){
          this.subViews[subView].update(tiempoAudio);
       }
 
-      window.requestAnimationFrame(this.render.bind(this));
+      window.requestAnimationFrame(this.update.bind(this));
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

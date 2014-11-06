@@ -13,8 +13,10 @@
       var p = params || {};
 
       /** 
-       * https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
+       * Ver https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
        * @member audioContext
+       * @memberof AudioGraph
+       * @instance
        * @public
        */
       this.audioContext = p.audioContext || new AudioContext();
@@ -23,6 +25,8 @@
       /** 
        * Tempo en beats por minuto
        * @member tempo
+       * @memberof AudioGraph
+       * @instance
        * @public
        */
       this.tempo = p.tempo || 120;
@@ -37,7 +41,7 @@
 
 
       /** 
-       * Array que contiene los nodos de la gráfica de audio
+       * Array que contiene los nodos (instrumentos) de la gráfica de audio
        * @member instrumentos
        * @private
        */
@@ -45,11 +49,11 @@
 
 
       // Crear instancias de los instrumentos y conectarlos.
-      // var unBajo = new EscuelaDeExperimentos.InstrumentoBajo({
-      //    audioGraph: this
-      // });
-      // unBajo.conectar(this.audioContext.destination);
-      // this.instrumentos.bajo = unBajo;
+      var unBajo = new EscuelaDeExperimentos.InstrumentoBajo({
+         audioGraph: this
+      });
+      unBajo.conectar(this.audioContext.destination);
+      this.instrumentos.bajo = unBajo;
 
       
       // Ejecutar el planificador de eventos cada periodo
@@ -59,22 +63,15 @@
    /** 
     * Planificador de eventos de audio.
     * @private
-    * @method
+    * @function
     */
    AudioGraph.prototype.tick = function(){
-      // var tiempoAudio = this.audioContext.currentTime;
-      // for(var instrumento in this.instrumentos){
-      //    this.instrumentos[instrumento].programarNotas(tiempoAudio);
-      // }
+      var tiempoAudio = this.audioContext.currentTime;
+      for(var instrumento in this.instrumentos){
+         this.instrumentos[instrumento].programarNotas(tiempoAudio);
+      }
    };
 
-   // /**
-   //  * Here's a static member variable
-   //  * @member
-   //  * @static
-   //  */
-   // Monkey.prototype.type = 'mammal';
-   
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
    global.EscuelaDeExperimentos.AudioGraph = AudioGraph;
 })(this);
