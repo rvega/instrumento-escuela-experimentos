@@ -44,13 +44,29 @@
     */
    InstrumentoBajoView.prototype.clickBoton = function(e){
       var btn = e.target;
+
+      // Desactivar otros botones de esta columna
+      var col = this.botones[btn.columna];
+      for(var i=0; i<col.length; i++){
+         var otroBtn = col[i]; 
+         if(otroBtn !== btn && otroBtn.activo){
+            otroBtn.activo = false;
+            otroBtn.fill('#FFFFFF');
+            otroBtn.draw();
+            break;
+         }
+      }
+
+      // (des)activar este boton
       if(!btn.activo){
          btn.fill('#333333');
          btn.activo = true;
+         this.audioInstrumento.secuencia[btn.columna] = btn.fila;
       }
       else{
          btn.fill('#FFFFFF');
          btn.activo = false;
+         this.audioInstrumento.secuencia[btn.columna] = -1;
       }
       btn.draw();
    };
@@ -144,8 +160,8 @@
                   p10.x, p10.y]
             });
          
-            b.columna = radio;
-            b.fila = angulo;
+            b.columna = angulo;
+            b.fila = radio;
             b.activo = false;
             b.on('mousedown', this.clickBoton.bind(this));
             layer.add(b);

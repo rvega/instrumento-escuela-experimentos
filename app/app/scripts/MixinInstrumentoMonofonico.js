@@ -17,7 +17,7 @@
        * @member secuencia
        * @public
        */
-      this.secuencia = p.secuencia || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      this.secuencia = p.secuencia || [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
 
       /** 
        * Array de notas (frecuencias), que se pueden tocar en las secuencias,
@@ -25,7 +25,7 @@
        * @member notas
        * @private
        */
-      this.notas = p.notas || [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+      this.notas = p.notas || [150, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
 
       /** 
        * La gráfica que contiene a este instrumento
@@ -40,7 +40,7 @@
        * @member tiempoMirarFuturo
        * @private
        */
-      this.tiempoMirarFuturo = 0.5;
+      this.tiempoMirarFuturo = 0.1;
 
       /** 
        * Cuando empezó a sonar la nota actual.
@@ -86,7 +86,7 @@
       var duracionNota = 60.0/bpm;
       var freq;
       while(this.tiempoNotaProxima < tiempo+this.tiempoMirarFuturo){
-         if(this.secuencia[this.notaActual] !== 0){
+         if(this.secuencia[this.notaActual] !== -1){
             freq = this.notas[ this.secuencia[this.notaActual] ];
             this.tocarNota(this.tiempoNotaProxima, duracionNota, freq);
          }
