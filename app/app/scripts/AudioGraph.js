@@ -37,7 +37,7 @@
        * @member periodoTick
        * @private
        */
-      this.periodoTick = p.periodoTick || 0.050;
+      this.periodoTick = p.periodoTick || 0.010;
 
 
       /** 
