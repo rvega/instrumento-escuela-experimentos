@@ -1,4 +1,5 @@
 (function(global){
+   'use strict';
 
    // Angles are measured as:
    //      180
@@ -16,7 +17,6 @@
 
       if(!p.htmlContainer){
          throw new Error('Knob: You must provide the id of a DOM element.');
-         return;
       }
       this.element = $('#'+p.htmlContainer);
 
@@ -37,11 +37,11 @@
       this.customFormatValue = p.valueFormat || null;
 
       this.sprite = p.sprite || 'styles/img/knob.png';
-      this.spriteCount =  p.spriteCount || 120,
-      this.spriteInitialAngle =  p.spriteInitialAngle || 0,
-      this.spriteWidth =  p.spriteWidth || 100,
-      this.spriteSeparation =  p.spriteSeparation || 0,
-      this.spriteDirection =  p.spriteDirection || 'clockwise',
+      this.spriteCount =  p.spriteCount || 120;
+      this.spriteInitialAngle =  p.spriteInitialAngle || 0;
+      this.spriteWidth =  p.spriteWidth || 100;
+      this.spriteSeparation =  p.spriteSeparation || 0;
+      this.spriteDirection =  p.spriteDirection || 'clockwise';
 
       this.draw();
       this.initDrag();
@@ -70,7 +70,7 @@
       container.css('background-size', bgWidth+'px 100%' );
 
       var lbl = this.element.find('.label');
-      if(this.label!=''){
+      if(this.label!==''){
          lbl.html(this.label);
          lbl.show();
       }
@@ -98,7 +98,7 @@
          val = this.customFormatValue(val);
       }
       else{
-         if(this.step == null){
+         if(this.step === null){
             val = val.toFixed(2);
          }
       }
@@ -130,7 +130,7 @@
 
    Knob.prototype.mousedown = function(e){
       this.lastY = e.screenY;
-      if(typeof(this.lastY) == 'undefined'){
+      if(typeof(this.lastY) === 'undefined'){
          this.lastY = e.originalEvent.changedTouches[0].screenY; 
       }
 
@@ -142,7 +142,7 @@
 
    Knob.prototype.mousemove = function(e){
       var screenY = e.screenY;
-      if(typeof(screenY) == 'undefined'){
+      if(typeof(screenY) === 'undefined'){
          screenY = e.originalEvent.changedTouches[0].screenY; 
       }
 
@@ -160,8 +160,8 @@
       this.normalValue = this.value2Normal(this.value);
 
       // callback
-      if(typeof(this.changingCallback)=='function'){
-         if(this.value!=this.previousValue){
+      if(typeof(this.changingCallback)==='function'){
+         if(this.value!==this.previousValue){
             this.previousValue = this.value;
             this.changingCallback(this.value, this.normalValue);
          }
@@ -176,8 +176,8 @@
       e.preventDefault();
    };
 
-   Knob.prototype.mouseup = function(e){
-      if(typeof(this.changedCallback)=='function'){
+   Knob.prototype.mouseup = function(){
+      if(typeof(this.changedCallback)==='function'){
          this.changedCallback(this.value, this.normalValue);
       }
 
@@ -203,12 +203,12 @@
    };
 
    Knob.prototype.snapValueToStep = function(value){
-      if(this.step == null){
+      if(this.step === null){
          return value;
       }
 
       var numDigits = String(this.step).split('.');
-      if(numDigits.length == 2){
+      if(numDigits.length === 2){
          numDigits = numDigits[1].length; 
       }
       else{

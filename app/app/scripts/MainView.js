@@ -73,7 +73,7 @@
    };
 
    MainView.prototype.initSubviews = function(){
-      var controles = new EscuelaDeExperimentos.ControlesView({
+      new EscuelaDeExperimentos.ControlesView({
          audioGraph: this.audioGraph,
          superView: this
       });
@@ -86,6 +86,43 @@
          y: this.height/2 + 60
       });
       this.subViews.bajo = unBajo;
+
+      this.subViews.bajoMini = unBajo;
+
+      var w = this.width/8;
+      var m = 13;
+      var opts = {         
+         audioInstrumento: this.audioGraph.instrumentos.bajo,
+         superView: this,
+         width: w,
+         y: 10
+      };
+
+      opts.x = 1 + 0*(w+m);
+      var unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+
+      opts.x = 1 + 1*(w+m);
+      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+
+      opts.x = 1 + 2*(w+m);
+      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+
+      opts.x = 1 + 3*(w+m);
+      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+
+      opts.x = 1 + 4*(w+m);
+      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+
+      opts.x = 1 + 5*(w+m);
+      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+
+      opts.x = 1 + 6*(w+m);
+      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+
+      // opts.x = 1 + 7*(w+m);
+      // unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+
+      // this.subViews.bajo = unBajo;
 
       // Update manualmente la primera vez
       this.update();

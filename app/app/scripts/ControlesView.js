@@ -1,3 +1,4 @@
+/* global EscuelaDeExperimentos */
 
 (function(global){
    'use strict';
@@ -39,7 +40,7 @@
       var container = document.getElementById(this.superView.htmlContainer);
       $(container).prepend(this.template);
 
-      var tempoKnob = new EscuelaDeExperimentos.Knob({
+      new EscuelaDeExperimentos.Knob({
          htmlContainer: 'knob-tempo',
          changedCallback: this.tempoChange.bind(this),
          minValue: 60,
@@ -49,7 +50,7 @@
       });
    };
 
-   ControlesView.prototype.tempoChange = function(value, normalValue){
+   ControlesView.prototype.tempoChange = function(value){
       this.audioGraph.tempo = value;
    };
 
