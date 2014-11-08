@@ -78,7 +78,7 @@
     * @private
     */
    InstrumentoBajoView.prototype.polar2cart = function(angulo, radio){
-      var w = this.superView.ancho;
+      var w = this.superView.width;
       angulo -= 90; // cero grados al norte
       angulo *= -1; // rotación hacia la derecha
       var x = w/2 + radio*Math.cos(angulo*Math.PI/180);
@@ -93,13 +93,12 @@
    InstrumentoBajoView.prototype.dibujar = function(){
       var stage = this.superView.stage;
       var layer = new Kinetic.Layer();
-      var w = this.superView.ancho;
+      var w = this.superView.width;
 
       // Magnitudes botones en radio
       var cuantosBotonesPorRadio = this.audioInstrumento.notas.length;
       var radioOffset = w/10;
       var espacioBotonRadio = (w/2-radioOffset)/cuantosBotonesPorRadio;
-      console.log(espacioBotonRadio);
       var tamanoBotonRadio = 0.80*espacioBotonRadio;
 
       // Magnitudes botones en angulo

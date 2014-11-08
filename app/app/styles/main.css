@@ -1,29 +1,89 @@
-body {
-  background: #fafafa;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  color: #333;
+@font-face {
+   font-family: 'Iceland';
+   font-style: normal;
+   font-weight: 400;
+   src: url('fonts/Iceland/Iceland-Regular.ttf') format('truetype');
 }
 
-.hero-unit {
-  margin: 50px auto 0 auto;
-  width: 300px;
-  font-size: 18px;
-  font-weight: 200;
-  line-height: 30px;
-  background-color: #eee;
-  border-radius: 6px;
-  padding: 60px;
+#instrumento {
+   padding:10px;
 }
 
-.hero-unit h1 {
-  font-size: 60px;
-  line-height: 1;
-  letter-spacing: -1px;
+#instrumento #controles{
+   width: 153px;
+   height: 31px;
+   padding:10px;
+   border: 2px solid #575757;
+   border-radius: 4px;
+   background-color: #464646;
+   position: relative;
 }
 
-.browsehappy {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+#instrumento #controles .boton:active{
+   background: #222;
+}
+
+#instrumento #controles .boton:focus,
+#instrumento #controles #stop:focus{
+   border: 1px solid #fe711b;
+}
+
+#instrumento #controles .boton{
+   float:left;
+   margin: 0px;
+   padding:0px;
+   border: 1px solid #000;
+   height: 31px;
+   Width: 31px;
+
+   background: #838383;
+   background: -moz-linear-gradient(top, #838383 11%, #525252 100%);
+   background: -webkit-gradient(linear, left top, left bottom, color-stop(11%,#838383), color-stop(100%,#525252));
+   background: -webkit-linear-gradient(top, #838383 11%,#525252 100%);
+   background: -o-linear-gradient(top, #838383 11%,#525252 100%);
+   background: -ms-linear-gradient(top, #838383 11%,#525252 100%);
+   background: linear-gradient(to bottom, #838383 11%,#525252 100%);
+   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#838383', endColorstr='#525252',GradientType=0 );
+
+   outline: none;
+}
+
+#instrumento #controles #stop{
+   border-right: 0px none;
+   border-radius:2px 0px 0px 2px;
+}
+
+#instrumento #controles #stop img{
+   margin-bottom:1px;
+}
+
+#instrumento #controles #play{
+   padding: 1px 0px 0px 1px;
+   border-radius:0px 2px 2px 0px;
+}
+
+
+
+#instrumento #controles #tempo-icon{
+   position: absolute;
+   top:20px;
+   left:153px;
+}
+
+#instrumento #controles #knob-tempo{
+   display:inline-block;
+   margin-left: 10px;
+}
+
+#instrumento #controles #knob-tempo .value{
+   font-family: 'Iceland';
+   font-size: 24px;
+   text-align:left;
+   padding-top:1px;
+   width:50px;
+   height:30px;
+   position: absolute;
+   top: 3px;
+   left: 31px;
+   color: #fe711b;
 }

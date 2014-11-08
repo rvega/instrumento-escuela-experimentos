@@ -10,23 +10,45 @@
    <!-- endbuild -->
 
    <!-- build:css(.tmp) styles/main.css -->
-   <!-- <link rel="stylesheet" href="styles/main.css"> -->
+   <link rel="stylesheet" href="styles/main.css">
+   <link rel="stylesheet" href="styles/knob.css">
    <!-- endbuild -->
 
    <style type="text/css" media="all">
       html, body{
          margin: 0px;
          padding: 0px;
-         background-color: #333;
+         background-color: #EEE;
       }   
+
+      #content{
+         max-width: 800px;
+         margin: 10px auto;
+      }
+
+      h1, p{
+         font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+         margin: 0px 0px 5px 0px;
+      }
+
+      h1{
+         font-size: 36px;
+         font-weight: bold;
+         letter-spacing: -1.5px;
+      }
       
    </style>
 </head>
 <body>
-   <div id="instrumento"></div>
+   <div id="content">
+      <h1>Instrumento Musical Escuela de Experimentos</h1>
+      <p>Info <a href="http://github.com/rvega/instrumento-escuela-experimentos">aquí</a>.</p>
+      <div id="instrumento"></div>
+   </div>
 
    <!-- build:js(.) scripts/vendor.js -->
    <!-- bower:js -->
+   <script src="bower_components/jquery/dist/jquery.js"></script>
    <script src="bower_components/kineticjs/kinetic.js"></script>
    <!-- endbower -->
    <script src="vendors/web-audio-monkey-patch/webkitAudioContextMonkeyPatch.js"></script>
@@ -34,11 +56,13 @@
 
    <!-- build:js({app,.tmp}) scripts/instrumento-escuela-experimentos.js -->
    <script src="scripts/Utility.js"></script>
+   <script src="scripts/Knob.js"></script>
 
    <script src="scripts/MixinInstrumentoMonofonico.js"></script>
    <script src="scripts/InstrumentoBajo.js"></script>
    <script src="scripts/AudioGraph.js"></script>
 
+   <script src="scripts/ControlesView.js"></script>
    <script src="scripts/InstrumentoBajoView.js"></script>
    <script src="scripts/MainView.js"></script>
 

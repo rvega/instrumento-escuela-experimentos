@@ -4,7 +4,7 @@ Instrumento musical pedagógico versión web para la Escuela de Experimentos de 
 
 ### 0. Recursos
 
-* [Aplicación en ejecución](./) (To-do)
+* [Aplicación en ejecución](http://rvega.github.io/instrumento-escuela-experimentos/)
 * [Discusión y reporte de bugs](https://github.com/rvega/instrumento-escuela-experimentos/issues)
 * [Diseño inicial](https://github.com/rvega/instrumento-escuela-experimentos/tree/master/bocetos)
 

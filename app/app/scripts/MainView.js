@@ -41,33 +41,44 @@
 
       /** 
        * Tamaño
-       * @member ancho
+       * @member width
        * @private
        */
-      this.ancho = p.ancho || window.innerWidth;
+      this.width = p.width;
 
       /** 
        * Tamaño
-       * @member alto
+       * @member height
        * @private
        */
-      this.alto = p.alto || window.innerHeight;
+      this.height = p.height;
 
       this.initStage();
       this.initSubviews();
    };
 
+   MainView.prototype.template = '<div id="stage"></div>';
+
    MainView.prototype.initStage = function(){
+      var container = document.getElementById(this.htmlContainer);
+      container.innerHTML += this.template;
+      container.style.background = '#333';
+
       // Superficie de dibujo de Kinetic. http://www.kineticjs.com/
       this.stage = new Kinetic.Stage({
-         container:this.htmlContainer,
-         width: this.ancho,
-         height: this.alto
+         container: 'stage',
+         width: this.width,
+         height: this.height
       });
    };
 
    MainView.prototype.initSubviews = function(){
-      // Crear instancias de los views.
+      var controles = new EscuelaDeExperimentos.ControlesView({
+         audioGraph: this.audioGraph,
+         superView: this
+      });
+      // this.subViews.controles = controles;
+
       var unBajo = new EscuelaDeExperimentos.InstrumentoBajoView({
          audioInstrumento: this.audioGraph.instrumentos.bajo,
          superView: this

@@ -1,0 +1,22 @@
+.knob-container{
+   cursor: ns-resize;
+   background-position: 0px 50%;
+   position: relative;
+}
+
+.knob-container .label{
+   position: absolute;
+   bottom:-11px;
+   left: 0px;
+   width: 100%;
+   text-align: center;
+   display:none;
+}
+
+.knob-container .value{
+   position: absolute;
+   bottom: -25px;
+   left: 0px;
+   width: 100%;
+   text-align: center;
+}

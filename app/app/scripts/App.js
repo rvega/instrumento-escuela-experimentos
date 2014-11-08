@@ -16,14 +16,21 @@
    var App = function(params){
       var p = params || {};
       if(!p.htmlContainer){
-         console.error('EscuelaDeExperimentos.App(): Necesito un elemento html donde dibujar.');
+         console.error('EscuelaDeExperimentos.App(): \
+                       Necesito un elemento html donde dibujar.');
          return;
       }
+
+      // Ancho default es el ancho "natural" del contenedor en el html.
+      var width = p.width || document.getElementById(p.htmlContainer).offsetWidth;
+      var height = width*0.75;
 
       this.audioGraph = new EscuelaDeExperimentos.AudioGraph();
       this.mainView = new EscuelaDeExperimentos.MainView({
          audioGraph: this.audioGraph,
-         htmlContainer: p.htmlContainer
+         htmlContainer: p.htmlContainer,
+         width: width,
+         height: height
       });
    };
    global.EscuelaDeExperimentos.App = App;
