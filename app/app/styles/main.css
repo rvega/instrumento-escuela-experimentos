@@ -9,7 +9,12 @@
    padding:10px;
 }
 
+/* #instrumento #stage{ */
+   /* border: 1px solid red; // DEbug */
+/* } */
+
 #instrumento #controles{
+   float:left;
    width: 153px;
    height: 31px;
    padding:10px;

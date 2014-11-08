@@ -16,6 +16,29 @@
       this.superView = p.superView;
 
       /** 
+       * @member width
+       * @private
+       */
+      this.width = p.width || this.superView.width;
+
+      /** 
+       * Posicion x del centro del circulo en coordenadas cartesianas
+       * relativo al stage
+       * @member x
+       * @private
+       */
+      this.x = p.x || this.width/2;
+
+      /** 
+       * Posicion y del centro del circulo en coordenadas cartesianas
+       * relativo al stage
+       * @member y
+       * @private
+       */
+      this.y = p.y || this.width/2;
+
+
+      /** 
        * @member audioinstrumento
        * @private
        */
@@ -78,11 +101,10 @@
     * @private
     */
    InstrumentoBajoView.prototype.polar2cart = function(angulo, radio){
-      var w = this.superView.width;
       angulo -= 90; // cero grados al norte
       angulo *= -1; // rotación hacia la derecha
-      var x = w/2 + radio*Math.cos(angulo*Math.PI/180);
-      var y = w/2 - radio*Math.sin(angulo*Math.PI/180);
+      var x = this.x + radio*Math.cos(angulo*Math.PI/180);
+      var y = this.y - radio*Math.sin(angulo*Math.PI/180);
       return {x:x, y:y};
    };
 
@@ -93,7 +115,7 @@
    InstrumentoBajoView.prototype.dibujar = function(){
       var stage = this.superView.stage;
       var layer = new Kinetic.Layer();
-      var w = this.superView.width;
+      var w = this.width;
 
       // Magnitudes botones en radio
       var cuantosBotonesPorRadio = this.audioInstrumento.notas.length;

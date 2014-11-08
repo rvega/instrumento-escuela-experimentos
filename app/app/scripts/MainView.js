@@ -77,11 +77,13 @@
          audioGraph: this.audioGraph,
          superView: this
       });
-      // this.subViews.controles = controles;
 
       var unBajo = new EscuelaDeExperimentos.InstrumentoBajoView({
          audioInstrumento: this.audioGraph.instrumentos.bajo,
-         superView: this
+         superView: this,
+         width: this.width * 0.6,
+         x: this.width/2,
+         y: this.height/2 + 60
       });
       this.subViews.bajo = unBajo;
 
