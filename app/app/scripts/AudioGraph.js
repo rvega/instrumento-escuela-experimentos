@@ -15,19 +15,22 @@
       /** 
        * Ver https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
        * @member audioContext
-       * @memberof AudioGraph
-       * @instance
-       * @public
        */
       this.audioContext = p.audioContext || new AudioContext();
 
+      /** 
+       * @member playing
+       */
+      this.playing = true;
+
+      /** 
+       * @member tiempoInicial
+       */
+      this.tiempoInicial = this.audioContext.currentTime;
 
       /** 
        * Tempo en beats por minuto
        * @member tempo
-       * @memberof AudioGraph
-       * @instance
-       * @public
        */
       this.tempo = p.tempo || 120;
 
@@ -35,7 +38,6 @@
       /** 
        * Periodo para correr el planificador de eventos. Segundos
        * @member periodoTick
-       * @private
        */
       this.periodoTick = p.periodoTick || 0.010;
 
@@ -68,10 +70,32 @@
     * @function
     */
    AudioGraph.prototype.tick = function(){
-      var tiempoAudio = this.audioContext.currentTime;
-      for(var instrumento in this.instrumentos){
-         this.instrumentos[instrumento].programarNotas(tiempoAudio);
+      if(this.playing === true){
+         var tiempoAudio = this.audioContext.currentTime - this.tiempoInicial;
+         for(var instrumento in this.instrumentos){
+            this.instrumentos[instrumento].programarNotas(tiempoAudio, this.tiempoInicial);
+         }
       }
+   };
+
+   /** 
+    * @public
+    * @function play
+    */
+   AudioGraph.prototype.play = function(){
+      for(var instrumento in this.instrumentos){
+         this.instrumentos[instrumento].resetTiempo();
+      }
+      this.tiempoInicial = this.audioContext.currentTime;
+      this.playing = true; 
+   };
+
+   /** 
+    * @public
+    * @function stop
+    */
+   AudioGraph.prototype.stop = function(){
+      this.playing = false; 
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

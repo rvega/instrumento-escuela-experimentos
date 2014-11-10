@@ -123,19 +123,37 @@
    };
 
    /** 
+    * @method resetTiempo
+    * @public
+    */
+   AudioMixinInstrumentoMonofonico.resetTiempo = function(){
+      this.pasoActual = 0;
+      this.notaActual = 0;
+      this.tiempoNotaActual = 0;
+      this.tiempoNotaProxima = 0;
+      this.notasEnFila = [];
+   };
+
+   /** 
     * Programa (schedule) las notas próximas a sonar. Ver explicación aqui:
     * http://www.html5rocks.com/en/tutorials/audio/scheduling/#toc-rocksolid
     * @public
     * @method programarNotas
     */
-   AudioMixinInstrumentoMonofonico.programarNotas = function(tiempo){
+   AudioMixinInstrumentoMonofonico.programarNotas = function(tiempoAudio, tiempoInicial){
+
+      // tiempo inicial se reinicia cuando el usuario le da play. El
+      // tiempo del audio context no se puede resetear entonces hacemos
+      // calclulos con tiempoAudio y para hacer schedule de las notas,
+      // le sumamos el tiempo inicial.
+
       var bpm = this.audioGraph.tempo;
       var duracionNota = 60.0/bpm;
       var freq;
-      while(this.tiempoNotaProxima < tiempo+this.tiempoMirarFuturo){
+      while(this.tiempoNotaProxima < tiempoAudio+this.tiempoMirarFuturo){
          if(this.secuencia[this.notaActual] !== -1){
             freq = this.notas[ this.secuencia[this.notaActual] ];
-            this.tocarNota(this.tiempoNotaProxima, duracionNota, freq);
+            this.tocarNota(this.tiempoNotaProxima+tiempoInicial, duracionNota, freq);
          }
 
          // tambien pongo "silencios" en el queue para que la ruedita siempre
@@ -149,6 +167,7 @@
          this.tiempoNotaProxima += duracionNota; 
 
          this.notaActual ++;
+         console.log(this.notaActual);
          if(this.notaActual === this.cuantosTiempos){
             this.notaActual = 0;
          }

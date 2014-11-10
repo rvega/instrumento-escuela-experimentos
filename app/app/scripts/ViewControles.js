@@ -48,6 +48,17 @@
          value: 120,
          step: 1
       });
+
+      $('#play').on('mouseup touchdown', this.play.bind(this));
+      $('#stop').on('mouseup touchdown', this.stop.bind(this));
+   };
+
+   ViewControles.prototype.play = function(){
+      this.audioGraph.play();
+   };
+
+   ViewControles.prototype.stop = function(){
+      this.audioGraph.stop();
    };
 
    ViewControles.prototype.tempoChange = function(value){
