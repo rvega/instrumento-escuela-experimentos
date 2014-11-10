@@ -35,6 +35,13 @@
        */
       this.descarga = p.descarga || 0.20;
 
+      /** 
+       * Tiempo de sustain (porcentaje de la duracion de la nota segun el tempo)
+       * @member sustain
+       * @private
+       */
+      this.sustain = p.sustain || 0.30;
+
       this.initInstrumentoMonofonico(params);
    };
    
@@ -63,8 +70,14 @@
       gain.gain.setValueAtTime(0, tiempo);
       gain.gain.linearRampToValueAtTime(1, tiempo+this.ataque);
 
-      // gain.gain.setValueAtTime(1, tiempo + duracion*0.5);  //<-- Le gusta?
-      gain.gain.linearRampToValueAtTime(0, tiempo + duracion*0.5 + this.descarga);
+      // Sustain es multiplo de la duracion
+      gain.gain.setValueAtTime(1, tiempo + duracion*this.sustain);
+      gain.gain.linearRampToValueAtTime(0, tiempo + duracion*this.sustain + this.descarga);
+
+      // Sustain es absoluto
+      // gain.gain.setValueAtTime(1, tiempo + this.sustain);
+      // gain.gain.linearRampToValueAtTime(0, tiempo + this.sustain + this.descarga);
+
       oscilador.stop(tiempo + duracion*0.5 + this.descarga);
 
       this.gain = gain;
