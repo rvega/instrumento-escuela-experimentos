@@ -30,7 +30,9 @@
        * @public
        */
       var secuenciaSilencio = [];
-      for(var i=0; i<this.cuantosTiempos; i++) secuenciaSilencio.push(-1);
+      for(var i=0; i<this.cuantosTiempos; i++){
+         secuenciaSilencio.push(-1);
+      }
       this.secuencia = p.secuencia || secuenciaSilencio;
 
       /** 
@@ -76,6 +78,15 @@
        * @private
        */
       this.tiempoNotaProxima = 0;
+
+      /**
+       * Notas en fila, contiene las notas que han sido programadas 
+       * para que suenen en el futuro. Lo usamos para sincronizar mas
+       * facilmente con el view.
+       */
+      this.notasEnFila = [];
+
+      this.pasoActual = 0;
    };
 
    /** 
@@ -88,6 +99,28 @@
       console.error('AudioMixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"tocarNota\"');
    };
 
+   /** 
+    * Devuelve el gain actual del instrumento. Para que los views dibujen
+    * cosas 
+    * @public
+    * @method getGain
+    */
+   AudioMixinInstrumentoMonofonico.getGain = function(){
+      return this.gain.gain.value;
+   };
+
+   /** 
+    * Devuelve el paso que está sonando (o en silencio) en este momento 
+    * @public
+    * @method programarNotas
+    */
+   AudioMixinInstrumentoMonofonico.getPasoActual = function(tiempo){
+      while(this.notasEnFila.length && this.notasEnFila[0].tiempo<tiempo) {
+         this.pasoActual = this.notasEnFila[0].paso;
+         this.notasEnFila.splice(0,1);   
+      }
+      return this.pasoActual;
+   };
 
    /** 
     * Programa (schedule) las notas próximas a sonar. Ver explicación aqui:
@@ -104,6 +137,13 @@
             freq = this.notas[ this.secuencia[this.notaActual] ];
             this.tocarNota(this.tiempoNotaProxima, duracionNota, freq);
          }
+
+         // tambien pongo "silencios" en el queue para que la ruedita siempre
+         // gire en el view (no solamente cuando hay notas)
+         this.notasEnFila.push({
+            paso: this.notaActual,
+            tiempo: this.tiempoNotaProxima
+         });
          
          this.tiempoNotaActual = this.tiempoNotaProxima;
          this.tiempoNotaProxima += duracionNota; 

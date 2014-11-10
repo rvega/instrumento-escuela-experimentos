@@ -3,7 +3,7 @@
 
 (function(global){
    'use strict';
-
+   
    /** 
     * Objeto gráfico principal, contiene las instancias de otras vistas,
     * se encarga del loop de animación, dibujar, eventos de mouse, etc.
@@ -78,51 +78,66 @@
          superView: this
       });
 
+      var widthMinis = this.width/8;
+      var marginMinis = 13;
+
+      // Views bajo
+      var coloresBajo = {
+         bordes: '#fa6923',
+         fondo: '#333333',
+         fondoDestacado: '#b1b1b1',
+         nota: '#fa6923',
+         notaDestacada: '#af410c'
+      };
+
       var unBajo = new EscuelaDeExperimentos.ViewInstrumento({
          audioInstrumento: this.audioGraph.instrumentos.bajo,
          superView: this,
          width: this.width * 0.6,
          x: this.width/2,
-         y: this.height/2 + 60
+         y: this.height/2 + 60,
+         colores: coloresBajo
       });
       this.subViews.bajo = unBajo;
 
-      this.subViews.bajoMini = unBajo;
-
-      var w = this.width/8;
-      var m = 13;
-      var opts = {         
+      var unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini({
          audioInstrumento: this.audioGraph.instrumentos.bajo,
          superView: this,
-         width: w,
-         y: 10
-      };
+         width: widthMinis,
+         y: 10,
+         x: 1,
+         colores: coloresBajo
+      });
+      this.subViews.bajoMini = unBajoMini;
 
-      opts.x = 1 + 0*(w+m);
-      var unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
+      // ......
+      // var w = widthMinis;
+      // var m = marginMinis;
+      // var opts = {         
+      //    audioInstrumento: this.audioGraph.instrumentos.bajo,
+      //    superView: this,
+      //    width: w,
+      //    y: 10,
+      //    colores: coloresBajo
+      // };
+      // opts.x = 1 + 1*(w+m);
+      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
-      opts.x = 1 + 1*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
+      // opts.x = 1 + 2*(w+m);
+      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
-      opts.x = 1 + 2*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
+      // opts.x = 1 + 3*(w+m);
+      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
-      opts.x = 1 + 3*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
+      // opts.x = 1 + 4*(w+m);
+      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
-      opts.x = 1 + 4*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
+      // opts.x = 1 + 5*(w+m);
+      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
-      opts.x = 1 + 5*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
+      // opts.x = 1 + 6*(w+m);
+      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
-      opts.x = 1 + 6*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
-
-      // opts.x = 1 + 7*(w+m);
-      // unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
-
-      // this.subViews.bajo = unBajo;
 
       // Update manualmente la primera vez
       this.update();

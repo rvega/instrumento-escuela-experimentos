@@ -1,4 +1,5 @@
 /* global Kinetic */
+/* global EscuelaDeExperimentos */
 
 (function(global){
    'use strict';
@@ -11,37 +12,63 @@
 
       /** 
        * @member superView
-       * @private
        */
       this.superView = p.superView;
 
       /** 
        * @member width
-       * @private
        */
       this.width = p.width || this.superView.width;
 
       /** 
+       * Posicion x del centro del circulo en coordenadas cartesianas
+       * relativo al stage
        * @member x
-       * @private
        */
-      this.x = p.x || 0;
+      this.x = p.x || this.width/2;
 
       /** 
+       * Posicion y del centro del circulo en coordenadas cartesianas
+       * relativo al stage
        * @member y
-       * @private
        */
-      this.y = p.y || 0;
-
+      this.y = p.y || this.width/2;
 
       /** 
        * @member audioinstrumento
-       * @private
        */
       this.audioInstrumento = p.audioInstrumento;
 
+      /** 
+       * @member colores
+       */
+      this.colores = p.colores || this.superView.coloresDefault;
+
+      /** 
+       * Subview.
+       * @member border
+       */
+      this.border = null;
+
       this.dibujar();
+
+      /** 
+       * @member rueda
+       */
+      p.colores.fondo = '#464646';
+      this.rueda = new EscuelaDeExperimentos.ViewRueda({
+         interactivo: false,
+         audioInstrumento: this.audioInstrumento,
+         superView: this,
+         x: this.x + this.width/2,
+         y: this.y + this.width/2,
+         width: this.width*0.85,
+         cuantasNotas: 5,
+         cuantosTiempos: 8,
+         colores: p.colores
+      });
    };
+   
 
 
    /** 
@@ -53,7 +80,7 @@
       var layer = new Kinetic.Layer();
       var w = this.width;
 
-      var border = new Kinetic.Rect({
+      this.border = new Kinetic.Rect({
          width: w,
          height: w,
          x: this.x,
@@ -64,37 +91,31 @@
          cornerRadius: 2
       });
 
-      layer.add(border);
+      layer.add(this.border);
       stage.add(layer);
-
-
-
-      // var b = new Kinetic.Line({
-      //    fill:'white',
-      //    stroke: 'red',
-      //    strokeWidth: 1,
-      //    closed: true,
-      //    points: [p1.x, p1.y, 
-      //       p2.x, p2.y, 
-      //       p3.x, p3.y,  
-      //       p4.x, p4.y, 
-      //       p5.x, p5.y,  
-      //       p6.x, p6.y, 
-      //       p7.x, p7.y,  
-      //       p8.x, p8.y, 
-      //       p9.x, p9.y,  
-      //       p10.x, p10.y]
-      // });
-      // layer.add(b);
-      // stage.add(layer);
    };
+
+
 
    /** 
     * @function update
     * @public
     */
    ViewInstrumentoMini.prototype.update = function(tiempoAudio){
-   
+      var g = this.audioInstrumento.getGain(tiempoAudio);
+      var color;
+      if(g>0.01){
+         color = EscuelaDeExperimentos.Utility.interpolarColores(
+            this.colores.fondo, 
+            this.colores.bordes, 
+            g
+         );
+      }
+      else{
+         color = this.colores.fondo;
+      }
+      this.border.fill(color);
+      this.border.draw();
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
