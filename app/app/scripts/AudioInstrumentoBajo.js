@@ -13,7 +13,7 @@
        * @member oscilador
        * @private
        */
-      this.oscilador = null;
+      // this.oscilador = null;
 
       /** 
        * @member gain
@@ -47,14 +47,36 @@
     * @method tocarNota
     */
    InstrumentoBajo.prototype.tocarNota = function(tiempo, duracion, frecuencia){
-      this.oscilador.frequency.setValueAtTime(frecuencia, tiempo);
+      var ctx = this.audioGraph.audioContext;
 
-      this.gain.gain.setValueAtTime(0, tiempo);
-      this.gain.gain.linearRampToValueAtTime(1, tiempo+this.ataque);
+      var oscilador = ctx.createOscillator();
+      var gain = ctx.createGain();
 
-      this.gain.gain.linearRampToValueAtTime(0, tiempo + duracion*0.5 + this.descarga);
+      oscilador.type = 'sawtooth';
+
+      oscilador.connect(gain);
+      gain.connect(this.salida);
+      
+      oscilador.frequency.setValueAtTime(frecuencia, tiempo);
+      oscilador.start(tiempo);
+
+      gain.gain.setValueAtTime(0, tiempo);
+      gain.gain.linearRampToValueAtTime(1, tiempo+this.ataque);
+
+      // gain.gain.setValueAtTime(1, tiempo + duracion*0.5);  //<-- Le gusta?
+      gain.gain.linearRampToValueAtTime(0, tiempo + duracion*0.5 + this.descarga);
+      oscilador.stop(tiempo + duracion*0.5 + this.descarga);
+
+      this.gain = gain;
    };
 
+
+   InstrumentoBajo.prototype.getGain = function(){
+      if(this.gain===null){
+         return 0;
+      }
+      return this.gain.gain.value;
+   };
 
    /** 
     * Conecta la salida de este instrumento a otro nodo en la gráfica de audio
@@ -62,18 +84,7 @@
     * @method
     */
    InstrumentoBajo.prototype.conectar = function(nodo){
-      var ctx = this.audioGraph.audioContext;
-
-      this.oscilador = ctx.createOscillator();
-      this.oscilador.type = 'saw';
-      this.oscilador.frequency.value = 220;
-      this.oscilador.start();
-
-      this.gain = ctx.createGain();
-      this.gain.gain.value = 0;
-
-      this.oscilador.connect(this.gain);
-      this.gain.connect(nodo);
+      this.salida = nodo;
    };
    
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

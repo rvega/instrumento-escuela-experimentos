@@ -96,7 +96,7 @@
     */
    AudioMixinInstrumentoMonofonico.tocarNota = function(tiempo, duracion, frecuencia){
       // jshint unused:false
-      console.error('AudioMixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"tocarNota\"');
+      throw new Error('AudioMixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"tocarNota\"');
    };
 
    /** 
@@ -106,7 +106,7 @@
     * @method getGain
     */
    AudioMixinInstrumentoMonofonico.getGain = function(){
-      return this.gain.gain.value;
+      throw new Error('AudioMixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"getGain\"');
    };
 
    /** 
@@ -167,7 +167,6 @@
          this.tiempoNotaProxima += duracionNota; 
 
          this.notaActual ++;
-         console.log(this.notaActual);
          if(this.notaActual === this.cuantosTiempos){
             this.notaActual = 0;
          }
@@ -181,7 +180,7 @@
     */
    AudioMixinInstrumentoMonofonico.conectar = function(nodo){
       // jshint unused:false
-      console.error('AudioMixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"conectar\"');
+      throw new Error('AudioMixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"conectar\"');
    };
    
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
