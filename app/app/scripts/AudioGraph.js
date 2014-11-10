@@ -50,7 +50,9 @@
 
       // Crear instancias de los instrumentos y conectarlos.
       var unBajo = new EscuelaDeExperimentos.InstrumentoBajo({
-         audioGraph: this
+         audioGraph: this,
+         cuantasNotas: 10,
+         cuantosTiempos: 16
       });
       unBajo.conectar(this.audioContext.destination);
       this.instrumentos.bajo = unBajo;

@@ -10,13 +10,13 @@
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
 
    /** 
-    * Constructor del objeto App que encapsula toda la aplicación.  
-    * @constructor App
+    * Constructor del objeto RondoRondo que encapsula toda la aplicación.  
+    * @constructor RondoRondo
     */
-   var App = function(params){
+   var RondoRondo = function(params){
       var p = params || {};
       if(!p.htmlContainer){
-         console.error('EscuelaDeExperimentos.App(): \
+         console.error('EscuelaDeExperimentos.RondoRondo(): \
                        Necesito un elemento html donde dibujar.');
          return;
       }
@@ -26,12 +26,12 @@
       var height = width*0.75;
 
       this.audioGraph = new EscuelaDeExperimentos.AudioGraph();
-      this.mainView = new EscuelaDeExperimentos.MainView({
+      this.mainView = new EscuelaDeExperimentos.ViewMain({
          audioGraph: this.audioGraph,
          htmlContainer: p.htmlContainer,
          width: width,
          height: height
       });
    };
-   global.EscuelaDeExperimentos.App = App;
+   global.EscuelaDeExperimentos.RondoRondo = RondoRondo;
 })(this);

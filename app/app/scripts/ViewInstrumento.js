@@ -4,9 +4,9 @@
    'use strict';
 
    /** 
-    * @constructor InstrumentoBajoView
+    * @constructor ViewInstrumento
     */
-   var InstrumentoBajoView = function(params){
+   var ViewInstrumento = function(params){
       var p = params || {};
 
       /** 
@@ -65,7 +65,7 @@
     * @function clickBoton
     * @private
     */
-   InstrumentoBajoView.prototype.clickBoton = function(e){
+   ViewInstrumento.prototype.clickBoton = function(e){
       var btn = e.target;
 
       // Desactivar otros botones de esta columna
@@ -100,7 +100,7 @@
     * @function polar2cart
     * @private
     */
-   InstrumentoBajoView.prototype.polar2cart = function(angulo, radio){
+   ViewInstrumento.prototype.polar2cart = function(angulo, radio){
       angulo -= 90; // cero grados al norte
       angulo *= -1; // rotación hacia la derecha
       var x = this.x + radio*Math.cos(angulo*Math.PI/180);
@@ -112,19 +112,19 @@
     * @function dibujar
     * @private
     */
-   InstrumentoBajoView.prototype.dibujar = function(){
+   ViewInstrumento.prototype.dibujar = function(){
       var stage = this.superView.stage;
       var layer = new Kinetic.Layer();
       var w = this.width;
 
       // Magnitudes botones en radio
-      var cuantosBotonesPorRadio = this.audioInstrumento.notas.length;
+      var cuantosBotonesPorRadio = this.audioInstrumento.cuantasNotas;
       var radioOffset = w/10;
       var espacioBotonRadio = (w/2-radioOffset)/cuantosBotonesPorRadio;
       var tamanoBotonRadio = 0.80*espacioBotonRadio;
 
       // Magnitudes botones en angulo
-      var cuantosBotonesPorVuelta = this.audioInstrumento.secuencia.length;
+      var cuantosBotonesPorVuelta = this.audioInstrumento.cuantosTiempos;
       var espacioBotonAngulo = 360/cuantosBotonesPorVuelta;
       var tamanoBotonAngulo = 0.9*espacioBotonAngulo;
 
@@ -197,7 +197,7 @@
     * @function destacarColumna
     * @private
     */
-   InstrumentoBajoView.prototype.destacarColumna = function(cualColumna, bool){
+   ViewInstrumento.prototype.destacarColumna = function(cualColumna, bool){
       var columna = this.botones[cualColumna];
       var len = columna.length;
       for(var i=0; i<len; i++){
@@ -222,7 +222,7 @@
     * @function update
     * @public
     */
-   InstrumentoBajoView.prototype.update = function(tiempoAudio){
+   ViewInstrumento.prototype.update = function(tiempoAudio){
       var i = this.audioInstrumento;
       var duracionNota = 60/i.audioGraph.tempo;
       var duracionLoop = duracionNota * i.secuencia.length;
@@ -237,5 +237,5 @@
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
-   global.EscuelaDeExperimentos.InstrumentoBajoView = InstrumentoBajoView;
+   global.EscuelaDeExperimentos.ViewInstrumento = ViewInstrumento;
 })(this);

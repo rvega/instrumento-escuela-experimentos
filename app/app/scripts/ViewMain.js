@@ -7,9 +7,9 @@
    /** 
     * Objeto gráfico principal, contiene las instancias de otras vistas,
     * se encarga del loop de animación, dibujar, eventos de mouse, etc.
-    * @constructor MainView
+    * @constructor ViewMain
     */
-   var MainView = function(params){
+   var ViewMain = function(params){
       var p = params || {};
 
       /** 
@@ -57,9 +57,9 @@
       this.initSubviews();
    };
 
-   MainView.prototype.template = '<div id="stage"></div>';
+   ViewMain.prototype.template = '<div id="stage"></div>';
 
-   MainView.prototype.initStage = function(){
+   ViewMain.prototype.initStage = function(){
       var container = document.getElementById(this.htmlContainer);
       container.innerHTML += this.template;
       container.style.background = '#333';
@@ -72,13 +72,13 @@
       });
    };
 
-   MainView.prototype.initSubviews = function(){
-      new EscuelaDeExperimentos.ControlesView({
+   ViewMain.prototype.initSubviews = function(){
+      new EscuelaDeExperimentos.ViewControles({
          audioGraph: this.audioGraph,
          superView: this
       });
 
-      var unBajo = new EscuelaDeExperimentos.InstrumentoBajoView({
+      var unBajo = new EscuelaDeExperimentos.ViewInstrumento({
          audioInstrumento: this.audioGraph.instrumentos.bajo,
          superView: this,
          width: this.width * 0.6,
@@ -99,25 +99,25 @@
       };
 
       opts.x = 1 + 0*(w+m);
-      var unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+      var unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
       opts.x = 1 + 1*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
       opts.x = 1 + 2*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
       opts.x = 1 + 3*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
       opts.x = 1 + 4*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
       opts.x = 1 + 5*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
       opts.x = 1 + 6*(w+m);
-      unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
+      unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
 
       // opts.x = 1 + 7*(w+m);
       // unBajoMini = new EscuelaDeExperimentos.InstrumentoMiniView(opts);
@@ -128,7 +128,7 @@
       this.update();
    };
 
-   MainView.prototype.update = function(){
+   ViewMain.prototype.update = function(){
       var tiempoAudio = this.audioGraph.audioContext.currentTime;
       for(var subView in this.subViews){
          this.subViews[subView].update(tiempoAudio);
@@ -138,5 +138,5 @@
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
-   global.EscuelaDeExperimentos.MainView = MainView;
+   global.EscuelaDeExperimentos.ViewMain = ViewMain;
 })(this);

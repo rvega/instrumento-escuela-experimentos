@@ -2,12 +2,24 @@
    'use strict';
 
    /** 
-    * @mixin MixinInstrumentoMonofonico
+    * @mixin AudioMixinInstrumentoMonofonico
     */
-   var MixinInstrumentoMonofonico = {};
+   var AudioMixinInstrumentoMonofonico = {};
 
-   MixinInstrumentoMonofonico.initInstrumentoMonofonico = function(params) {
+   AudioMixinInstrumentoMonofonico.initInstrumentoMonofonico = function(params) {
       var p = params || {};
+
+      /**
+       * "Registro" del instrumento
+       * @member cuantasNotas
+       */
+      this.cuantasNotas = p.cuantasNotas || 10;
+
+      /**
+       * Longitud de la secuencia 
+       * @member cuantosTiempos
+       */
+      this.cuantosTiempos = p.cuantosTiempos || 16;
 
       /** 
        * Array de notas que conforman una secuencia. 0 es silencio, 
@@ -17,7 +29,9 @@
        * @member secuencia
        * @public
        */
-      this.secuencia = p.secuencia || [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1];
+      var secuenciaSilencio = [];
+      for(var i=0; i<this.cuantosTiempos; i++) secuenciaSilencio.push(-1);
+      this.secuencia = p.secuencia || secuenciaSilencio;
 
       /** 
        * Array de notas (frecuencias), que se pueden tocar en las secuencias,
@@ -69,9 +83,9 @@
     * @private
     * @method tocarNota
     */
-   MixinInstrumentoMonofonico.tocarNota = function(tiempo, duracion, frecuencia){
+   AudioMixinInstrumentoMonofonico.tocarNota = function(tiempo, duracion, frecuencia){
       // jshint unused:false
-      console.error('MixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"tocarNota\"');
+      console.error('AudioMixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"tocarNota\"');
    };
 
 
@@ -81,7 +95,7 @@
     * @public
     * @method programarNotas
     */
-   MixinInstrumentoMonofonico.programarNotas = function(tiempo){
+   AudioMixinInstrumentoMonofonico.programarNotas = function(tiempo){
       var bpm = this.audioGraph.tempo;
       var duracionNota = 60.0/bpm;
       var freq;
@@ -95,7 +109,7 @@
          this.tiempoNotaProxima += duracionNota; 
 
          this.notaActual ++;
-         if(this.notaActual === this.secuencia.length){
+         if(this.notaActual === this.cuantosTiempos){
             this.notaActual = 0;
          }
       }
@@ -106,12 +120,12 @@
     * @public
     * @method
     */
-   MixinInstrumentoMonofonico.conectar = function(nodo){
+   AudioMixinInstrumentoMonofonico.conectar = function(nodo){
       // jshint unused:false
-      console.error('MixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"conectar\"');
+      console.error('AudioMixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"conectar\"');
    };
    
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
-   global.EscuelaDeExperimentos.MixinInstrumentoMonofonico = MixinInstrumentoMonofonico;
+   global.EscuelaDeExperimentos.AudioMixinInstrumentoMonofonico = AudioMixinInstrumentoMonofonico;
 })(this);
 

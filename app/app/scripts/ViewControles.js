@@ -4,9 +4,9 @@
    'use strict';
 
    /** 
-    * @constructor ControlesView
+    * @constructor ViewControles
     */
-   var ControlesView = function(params){
+   var ViewControles = function(params){
       var p = params || {};
 
       /** 
@@ -24,7 +24,7 @@
       this.dibujar();
    };
 
-   ControlesView.prototype.template = [
+   ViewControles.prototype.template = [
       '<div id="controles">',
          '<button class="boton" id="stop" type="button"><img src="styles/img/stop.png"/></button>',
          '<button class="boton" id="play" type="button"><img src="styles/img/play.png"/></button>',
@@ -36,11 +36,11 @@
     * @function dibujar
     * @private
     */
-   ControlesView.prototype.dibujar = function(){
+   ViewControles.prototype.dibujar = function(){
       var container = document.getElementById(this.superView.htmlContainer);
       $(container).prepend(this.template);
 
-      new EscuelaDeExperimentos.Knob({
+      new EscuelaDeExperimentos.ViewKnob({
          htmlContainer: 'knob-tempo',
          changedCallback: this.tempoChange.bind(this),
          minValue: 60,
@@ -50,10 +50,10 @@
       });
    };
 
-   ControlesView.prototype.tempoChange = function(value){
+   ViewControles.prototype.tempoChange = function(value){
       this.audioGraph.tempo = value;
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
-   global.EscuelaDeExperimentos.ControlesView = ControlesView;
+   global.EscuelaDeExperimentos.ViewControles = ViewControles;
 })(this);

@@ -4,9 +4,9 @@
    'use strict';
 
    /** 
-    * @constructor InstrumentoMiniView
+    * @constructor ViewInstrumentoMini
     */
-   var InstrumentoMiniView = function(params){
+   var ViewInstrumentoMini = function(params){
       var p = params || {};
 
       /** 
@@ -48,7 +48,7 @@
     * @function dibujar
     * @private
     */
-   InstrumentoMiniView.prototype.dibujar = function(){
+   ViewInstrumentoMini.prototype.dibujar = function(){
       var stage = this.superView.stage;
       var layer = new Kinetic.Layer();
       var w = this.width;
@@ -93,10 +93,10 @@
     * @function update
     * @public
     */
-   InstrumentoMiniView.prototype.update = function(tiempoAudio){
+   ViewInstrumentoMini.prototype.update = function(tiempoAudio){
    
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
-   global.EscuelaDeExperimentos.InstrumentoMiniView = InstrumentoMiniView;
+   global.EscuelaDeExperimentos.ViewInstrumentoMini = ViewInstrumentoMini;
 })(this);

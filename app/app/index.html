@@ -56,23 +56,23 @@
 
    <!-- build:js({app,.tmp}) scripts/instrumento-escuela-experimentos.js -->
    <script src="scripts/Utility.js"></script>
-   <script src="scripts/Knob.js"></script>
 
-   <script src="scripts/MixinInstrumentoMonofonico.js"></script>
-   <script src="scripts/InstrumentoBajo.js"></script>
+   <script src="scripts/AudioMixinInstrumentoMonofonico.js"></script>
+   <script src="scripts/AudioInstrumentoBajo.js"></script>
    <script src="scripts/AudioGraph.js"></script>
 
-   <script src="scripts/InstrumentoMiniView.js"></script>
-   <script src="scripts/ControlesView.js"></script>
-   <script src="scripts/InstrumentoBajoView.js"></script>
-   <script src="scripts/MainView.js"></script>
+   <script src="scripts/ViewKnob.js"></script>
+   <script src="scripts/ViewControles.js"></script>
+   <script src="scripts/ViewInstrumentoMini.js"></script>
+   <script src="scripts/ViewInstrumento.js"></script>
+   <script src="scripts/ViewMain.js"></script>
 
-   <script src="scripts/App.js"></script>
+   <script src="scripts/Main.js"></script>
    <!-- endbuild -->
 
    <script type="text/javascript" charset="utf-8">
       window.onload = function(e){
-         app = new EscuelaDeExperimentos.App({
+         rondo = new EscuelaDeExperimentos.RondoRondo({
             htmlContainer:'instrumento'
          });
 

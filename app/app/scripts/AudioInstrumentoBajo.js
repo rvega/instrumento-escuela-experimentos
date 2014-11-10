@@ -38,8 +38,8 @@
       this.initInstrumentoMonofonico(params);
    };
    
-   // Heredar los métodos y propiedades de MixinInstrumentoMonofonico
-   EscuelaDeExperimentos.Utility.mixin(InstrumentoBajo.prototype, EscuelaDeExperimentos.MixinInstrumentoMonofonico);
+   // Heredar los métodos de MixinInstrumentoMonofonico
+   EscuelaDeExperimentos.Utility.mixin(InstrumentoBajo.prototype, EscuelaDeExperimentos.AudioMixinInstrumentoMonofonico);
 
    /** 
     * Suena una nota.

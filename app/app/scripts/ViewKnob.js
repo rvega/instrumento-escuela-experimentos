@@ -10,13 +10,13 @@
 
    /**
     * A knob
-    * @constructor Knob
+    * @constructor ViewKnob
     */
-   var Knob = function(params){
+   var ViewKnob = function(params){
       var p = params || {};
 
       if(!p.htmlContainer){
-         throw new Error('Knob: You must provide the id of a DOM element.');
+         throw new Error('ViewKnob: You must provide the id of a DOM element.');
       }
       this.element = $('#'+p.htmlContainer);
 
@@ -49,12 +49,12 @@
       this.setValue(p.value || 0);
    };
 
-   Knob.prototype.destroy = function(){
+   ViewKnob.prototype.destroy = function(){
       this.destroyDrag(); 
       this.element.remove();
    };
 
-   Knob.prototype.draw = function(){
+   ViewKnob.prototype.draw = function(){
       var html = this.template;
       this.element.html(html);
       this.element.css('width', this.width);
@@ -83,7 +83,7 @@
       // this.element.css('border', '1px solid black');
    };
 
-   Knob.prototype.redraw = function(angle){
+   ViewKnob.prototype.redraw = function(angle){
       var separationAngle = 360 / this.spriteCount;
       var ticks = Math.floor((angle-this.spriteInitialAngle) / separationAngle);
       var pos = ticks * (this.spriteWidth + this.spriteSeparation) * this.spriteScale;
@@ -93,7 +93,7 @@
       this.element.find('.value').html(val);
    };
 
-   Knob.prototype.formatValue = function(val){
+   ViewKnob.prototype.formatValue = function(val){
       if(this.customFormatValue){
          val = this.customFormatValue(val);
       }
@@ -105,7 +105,7 @@
       return val;
    };
 
-   Knob.prototype.template = [
+   ViewKnob.prototype.template = [
       '<div class="knob-container">',
          '<div class="label"></div>',
          '<div class="value"></div>',
@@ -115,7 +115,7 @@
    ////////////////////////////////////////////////////////////////////////
    // Drag
 
-   Knob.prototype.initDrag = function(){
+   ViewKnob.prototype.initDrag = function(){
       this.element.on('mousedown', this.mousedown.bind(this));
 
       this.element.on('touchstart', this.mousedown.bind(this));
@@ -123,12 +123,12 @@
       this.element.on('touchend', this.mouseup.bind(this));
    };
 
-   Knob.prototype.destroyDrag = function(){
+   ViewKnob.prototype.destroyDrag = function(){
       $(document).off('mousemove.knob');
       $(document).off('mouseup.knob');
    };
 
-   Knob.prototype.mousedown = function(e){
+   ViewKnob.prototype.mousedown = function(e){
       this.lastY = e.screenY;
       if(typeof(this.lastY) === 'undefined'){
          this.lastY = e.originalEvent.changedTouches[0].screenY; 
@@ -140,7 +140,7 @@
       e.preventDefault();
    };
 
-   Knob.prototype.mousemove = function(e){
+   ViewKnob.prototype.mousemove = function(e){
       var screenY = e.screenY;
       if(typeof(screenY) === 'undefined'){
          screenY = e.originalEvent.changedTouches[0].screenY; 
@@ -176,7 +176,7 @@
       e.preventDefault();
    };
 
-   Knob.prototype.mouseup = function(){
+   ViewKnob.prototype.mouseup = function(){
       if(typeof(this.changedCallback)==='function'){
          this.changedCallback(this.value, this.normalValue);
       }
@@ -188,7 +188,7 @@
    ////////////////////////////////////////////////////////////////////////
    // Values
 
-   Knob.prototype.setValue = function(newValue){
+   ViewKnob.prototype.setValue = function(newValue){
       this.value = newValue;
 
       this.internalValue = this.value2InternalValue(this.value);
@@ -198,11 +198,11 @@
       this.redraw(this.angle);
    };
 
-   Knob.prototype.mapRange = function(from, to, value) {
+   ViewKnob.prototype.mapRange = function(from, to, value) {
       return to[0] + (value - from[0]) * (to[1] - to[0]) / (from[1] - from[0]);
    };
 
-   Knob.prototype.snapValueToStep = function(value){
+   ViewKnob.prototype.snapValueToStep = function(value){
       if(this.step === null){
          return value;
       }
@@ -217,30 +217,30 @@
       return (Math.round(value/this.step)*this.step).toFixed(numDigits);
    };
 
-   Knob.prototype.internalValue2Value = function(internalValue){
+   ViewKnob.prototype.internalValue2Value = function(internalValue){
       internalValue = Math.pow(internalValue, this.pow);
       return this.mapRange([0,1], [this.minValue, this.maxValue], internalValue);
    };
 
-   Knob.prototype.value2InternalValue = function(value){
+   ViewKnob.prototype.value2InternalValue = function(value){
       var intVal = this.mapRange([this.minValue, this.maxValue], [0, 1], value);
       return Math.pow(intVal, 1/this.pow);
    };
 
-   Knob.prototype.angle2InternalValue = function(angle){
+   ViewKnob.prototype.angle2InternalValue = function(angle){
       return this.mapRange([this.minAngle, this.maxAngle], [0,1], angle);
    };
 
-   Knob.prototype.internalValue2angle = function(intval){
+   ViewKnob.prototype.internalValue2angle = function(intval){
       return this.mapRange([0,1], [this.minAngle, this.maxAngle], intval);
    };
 
-   Knob.prototype.value2Normal = function(value){
+   ViewKnob.prototype.value2Normal = function(value){
       return this.mapRange([this.minValue, this.maxValue], [0, 1], value);
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
-   global.EscuelaDeExperimentos.Knob = Knob;
+   global.EscuelaDeExperimentos.ViewKnob = ViewKnob;
 
 })(this);
 
