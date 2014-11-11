@@ -10,6 +10,11 @@
       var p = params || {};
 
       /** 
+       * @member visible
+       */
+      this.visible = p.visible || false;
+
+      /** 
        * @member superView
        */
       this.superView = p.superView;
@@ -48,20 +53,46 @@
          superView: this,
          x: this.x,
          y: this.y,
-         width: this.width
+         width: this.width,
+         colores: p.colores
       });
+
+      if(this.visible){
+         this.mostrar(); 
+      }
+      else{
+         this.esconder(); 
+      }
    };
 
+   /** 
+    * @function mostrar
+    * @public
+    */
+   ViewInstrumento.prototype.mostrar = function(){
+      this.visible = true;
+      this.rueda.layer.show();
+   };
+
+   /** 
+    * @function esconder
+    * @public
+    */
+   ViewInstrumento.prototype.esconder = function(){
+      this.visible = false;
+      this.rueda.layer.hide();
+   };
 
    /** 
     * @function update
     * @public
     */
    ViewInstrumento.prototype.update = function(tiempoAudio){
-      // TODO: arreglar, no puede depender de bpm.
-      var i = this.audioInstrumento;
-      var paso = i.getPasoActual(tiempoAudio);
-      this.rueda.destacarColumna(paso);
+      if(this.visible){
+         var i = this.audioInstrumento;
+         var paso = i.getPasoActual(tiempoAudio);
+         this.rueda.destacarColumna(paso);
+      }
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

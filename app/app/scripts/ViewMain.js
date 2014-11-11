@@ -11,47 +11,15 @@
     */
    var ViewMain = function(params){
       var p = params || {};
-
-      /** 
-       * @member audioGraph
-       * @public
-       */
       this.audioGraph = p.audioGraph;
-
-      /** 
-       * Superficie de dibujo
-       * @member stage
-       * @private
-       */
-      this.stage = null;
-
-      /** 
-       * Array que contiene los otros views
-       * @member views
-       * @private
-       */
-      this.subViews = {};
-
-      /** 
-       * Elemento HTML
-       * @member htmlContainer
-       * @private
-       */
       this.htmlContainer = p.htmlContainer;
-
-      /** 
-       * Tamaño
-       * @member width
-       * @private
-       */
       this.width = p.width;
-
-      /** 
-       * Tamaño
-       * @member height
-       * @private
-       */
       this.height = p.height;
+
+      this.stage = null;
+      this.subViews = {};
+      this.instrumentoActivo = null;
+      this.instrumentoMiniActivo = null;
 
       this.initStage();
       this.initSubviews();
@@ -83,11 +51,11 @@
 
       // Views bajo
       var coloresBajo = {
-         bordes: '#fa6923',
          fondo: '#333333',
-         fondoDestacado: '#b1b1b1',
-         nota: '#fa6923',
-         notaDestacada: '#af410c'
+         fondoDestacado: '#464646',
+         bordes: '#e63b31',
+         nota: '#e63b31',
+         notaDestacada: '#932822'
       };
 
       var unBajo = new EscuelaDeExperimentos.ViewInstrumento({
@@ -96,9 +64,11 @@
          width: this.width * 0.6,
          x: this.width/2,
          y: this.height/2 + 60,
-         colores: coloresBajo
+         colores: coloresBajo,
+         visible: true
       });
       this.subViews.bajo = unBajo;
+      this.instrumentoActivo = unBajo;
 
       var unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini({
          audioInstrumento: this.audioGraph.instrumentos.bajo,
@@ -106,37 +76,42 @@
          width: widthMinis,
          y: 10,
          x: 1,
-         colores: coloresBajo
+         colores: coloresBajo,
+         activo: true
       });
+      unBajoMini.instrumentoView = unBajo;
       this.subViews.bajoMini = unBajoMini;
+      this.instrumentoMiniActivo = unBajoMini;
 
-      // ......
-      // var w = widthMinis;
-      // var m = marginMinis;
-      // var opts = {         
-      //    audioInstrumento: this.audioGraph.instrumentos.bajo,
-      //    superView: this,
-      //    width: w,
-      //    y: 10,
-      //    colores: coloresBajo
-      // };
-      // opts.x = 1 + 1*(w+m);
-      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
+      // Views Seno 1
+      var coloresSeno1 = {
+         fondo: '#333333',
+         fondoDestacado: '#464646',
+         bordes: '#fa6923',
+         nota: '#fa6923',
+         notaDestacada: '#af410c'
+      };
 
-      // opts.x = 1 + 2*(w+m);
-      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
+      var unSeno = new EscuelaDeExperimentos.ViewInstrumento({
+         audioInstrumento: this.audioGraph.instrumentos.seno1,
+         superView: this,
+         width: this.width * 0.6,
+         x: this.width/2,
+         y: this.height/2 + 60,
+         colores: coloresSeno1
+      });
+      this.subViews.seno1 = unSeno;
 
-      // opts.x = 1 + 3*(w+m);
-      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
-
-      // opts.x = 1 + 4*(w+m);
-      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
-
-      // opts.x = 1 + 5*(w+m);
-      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
-
-      // opts.x = 1 + 6*(w+m);
-      // unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini(opts);
+      var unSenoMini1 = new EscuelaDeExperimentos.ViewInstrumentoMini({
+         audioInstrumento: this.audioGraph.instrumentos.seno1,
+         superView: this,
+         width: widthMinis,
+         y: 10,
+         x: 1 + widthMinis + marginMinis,
+         colores: coloresSeno1
+      });
+      unSenoMini1.instrumentoView = unSeno;
+      this.subViews.senoMini1 = unSenoMini1;
 
 
       // Update manualmente la primera vez
@@ -150,6 +125,19 @@
       }
 
       window.requestAnimationFrame(this.update.bind(this));
+   };
+
+   ViewMain.prototype.clickedMini = function(mini){
+      if(mini !== this.instrumentoMiniActivo){
+         this.instrumentoActivo.esconder();
+         this.instrumentoMiniActivo.desactivar();
+
+         this.instrumentoActivo = mini.instrumentoView;
+         this.instrumentoMiniActivo = mini;
+
+         mini.activar();
+         this.instrumentoActivo.mostrar();
+      }
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

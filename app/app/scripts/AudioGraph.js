@@ -59,6 +59,13 @@
       unBajo.conectar(this.audioContext.destination);
       this.instrumentos.bajo = unBajo;
 
+      var unSeno1 = new EscuelaDeExperimentos.InstrumentoSeno({
+         audioGraph: this,
+         cuantasNotas: 10,
+         cuantosTiempos: 16
+      });
+      unSeno1.conectar(this.audioContext.destination);
+      this.instrumentos.seno1 = unSeno1;
       
       // Ejecutar el planificador de eventos cada periodo
       setInterval(this.tick.bind(this), this.periodoTick*1000);

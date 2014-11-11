@@ -70,6 +70,8 @@
        */
       this.columnaDestacada = 0;
 
+      this.layer = null;
+
       this.dibujar();
 
       if(this.interactivo){
@@ -83,6 +85,25 @@
       fondoDestacado: '#464646',
       notaDestacada: '#fa6923',
       nota: '#af410c'
+   };
+
+   ViewRueda.prototype.mouseover = function(e){
+      var btn = e.target;
+      btn.fill(this.colores.fondoDestacado);
+      btn.draw();
+      document.body.style.cursor = 'pointer';
+   };
+
+   ViewRueda.prototype.mouseout = function(e){
+      var btn = e.target;
+      if(btn.activo){
+         btn.fill(this.colores.nota);
+      }
+      else{
+         btn.fill(this.colores.fondo);
+      }
+      btn.draw();
+      document.body.style.cursor = 'default';
    };
 
    /** 
@@ -105,13 +126,13 @@
 
       // (des)activar este boton
       if(!btn.activo){
-         btn.fill(this.colores.nota);
          btn.activo = true;
+         btn.fill(this.colores.nota);
          this.audioInstrumento.secuencia[btn.columna] = btn.fila;
       }
       else{
-         btn.fill(this.colores.fondo);
          btn.activo = false;
+         btn.fill(this.colores.fondo);
          this.audioInstrumento.secuencia[btn.columna] = -1;
       }
       btn.draw();
@@ -135,7 +156,7 @@
     */
    ViewRueda.prototype.dibujar= function(){
       var stage = this.superView.superView.stage;
-      var layer = new Kinetic.Layer({
+      this.layer = new Kinetic.Layer({
          listening: this.interactivo
       });
       var w = this.width;
@@ -209,13 +230,15 @@
             b.activo = false;
             if(this.interactivo){
                b.on('mousedown', this.clickBoton.bind(this));
+               b.on('mouseover', this.mouseover.bind(this));
+               b.on('mouseout', this.mouseout.bind(this));
             }
-            layer.add(b);
+            this.layer.add(b);
             columna.push(b);
          }
          this.botones.push(columna);
       }
-      stage.add(layer);
+      stage.add(this.layer);
    };
 
    /** 

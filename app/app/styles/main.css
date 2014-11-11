@@ -24,6 +24,10 @@
    position: relative;
 }
 
+#instrumento #controles .boton:hover{
+   cursor: pointer;
+}
+
 #instrumento #controles .boton:active{
    background: #222;
 }
