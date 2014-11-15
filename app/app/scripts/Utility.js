@@ -17,6 +17,21 @@
    };
 
    /**
+    * Devuelve una copia poco profunda (shallow) de un objeto
+    * @function clone
+    */
+   Utility.clone = function(objeto){
+      var clon = {};
+      for(var propiedad in objeto){
+         if(objeto.hasOwnProperty(propiedad)){
+            clon[propiedad] = objeto[propiedad];
+         }
+      }
+
+      return clon;
+   };
+
+   /**
     * Interpola dos colores con un indice entre 0 y 1
     * @function interpolarColores
     */

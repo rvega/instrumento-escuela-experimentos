@@ -29,19 +29,17 @@
        * @member secuencia
        * @public
        */
-      var secuenciaSilencio = [];
-      for(var i=0; i<this.cuantosTiempos; i++){
-         secuenciaSilencio.push(-1);
+      if(typeof(p.secuencia)==='undefined'){
+         var secuenciaSilencio = [];
+         for(var i=0; i<this.cuantosTiempos; i++){
+            secuenciaSilencio.push(-1);
+         }
+         this.secuencia = secuenciaSilencio;
       }
-      this.secuencia = p.secuencia || secuenciaSilencio;
+      else{
+         this.secuencia = p.secuencia;
+      }
 
-      /** 
-       * Array de notas (frecuencias), que se pueden tocar en las secuencias,
-       *
-       * @member notas
-       * @private
-       */
-      this.notas = p.notas || [150, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
 
       /** 
        * La gráfica que contiene a este instrumento
@@ -83,10 +81,24 @@
        * Notas en fila, contiene las notas que han sido programadas 
        * para que suenen en el futuro. Lo usamos para sincronizar mas
        * facilmente con el view.
+       * @member notasEnFila
        */
       this.notasEnFila = [];
 
+      /**
+       * Cual paso de la secuencia se está tocando en este instante. 
+       * Diferente de notaActual porque ese es el que se está programando
+       * (scheduling) en este momento.
+       * @member pasoActual
+       */
       this.pasoActual = 0;
+
+      /** 
+       * Nodo de audio al que este instrumento envía su sonido
+       * @member salida
+       * @private
+       */
+      this.salida = null;
    };
 
    /** 
@@ -149,11 +161,11 @@
 
       var bpm = this.audioGraph.tempo;
       var duracionNota = 60.0/bpm;
-      var freq;
+      var cualNota;
       while(this.tiempoNotaProxima < tiempoAudio+this.tiempoMirarFuturo){
          if(this.secuencia[this.notaActual] !== -1){
-            freq = this.notas[ this.secuencia[this.notaActual] ];
-            this.tocarNota(this.tiempoNotaProxima+tiempoInicial, duracionNota, freq);
+            cualNota = this.secuencia[this.notaActual];
+            this.tocarNota(this.tiempoNotaProxima+tiempoInicial, duracionNota, cualNota);
          }
 
          // tambien pongo "silencios" en el queue para que la ruedita siempre

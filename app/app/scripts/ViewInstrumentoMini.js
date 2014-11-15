@@ -60,13 +60,8 @@
        * @member rueda
        */
 
-      var colores = {
-         fondo: '#333333',
-         fondoDestacado: p.colores.fondoDestacado,
-         bordes: p.colores.bordes,
-         nota: p.colores.nota,
-         notaDestacada: p.colores.notaDestacada
-      };
+      var colores = EscuelaDeExperimentos.Utility.clone(p.colores);
+      colores.fondo = '#333333';
 
       this.rueda = new EscuelaDeExperimentos.ViewRueda({
          interactivo: false,
@@ -133,8 +128,10 @@
       else{
          color = this.colores.fondo;
       }
-      this.border.fill(color);
-      this.border.draw();
+
+      // TODO: Esto está consumiendo demasiada CPU:
+      // this.border.fill(color);
+      // this.border.draw();
    };
 
    ViewInstrumentoMini.prototype.activar = function(){

@@ -66,6 +66,15 @@
       });
       unSeno1.conectar(this.audioContext.destination);
       this.instrumentos.seno1 = unSeno1;
+
+      var unRedoblante = new EscuelaDeExperimentos.InstrumentoSample({
+         audioGraph: this,
+         cuantasNotas: 1,
+         cuantosTiempos: 16,
+         wave: 'snare'
+      });
+      unRedoblante.conectar(this.audioContext.destination);
+      this.instrumentos.redoblante = unRedoblante;
       
       // Ejecutar el planificador de eventos cada periodo
       setInterval(this.tick.bind(this), this.periodoTick*1000);

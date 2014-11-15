@@ -113,6 +113,35 @@
       unSenoMini1.instrumentoView = unSeno;
       this.subViews.senoMini1 = unSenoMini1;
 
+      // Views redoblante
+      var coloresRedoblante = {
+         fondo: '#333333',
+         fondoDestacado: '#464646',
+         bordes: '#e63b31',
+         nota: '#e63b31',
+         notaDestacada: '#932822'
+      };
+
+      var unRedoblante = new EscuelaDeExperimentos.ViewInstrumento({
+         audioInstrumento: this.audioGraph.instrumentos.redoblante,
+         superView: this,
+         width: this.width * 0.6,
+         x: this.width/2,
+         y: this.height/2 + 60,
+         colores: coloresRedoblante,
+      });
+      this.subViews.redoblante = unRedoblante;
+
+      var unRedoblanteMini = new EscuelaDeExperimentos.ViewInstrumentoMini({
+         audioInstrumento: this.audioGraph.instrumentos.redoblante,
+         superView: this,
+         width: widthMinis,
+         y: 10,
+         x: 1 + 2*(widthMinis + marginMinis),
+         colores: coloresRedoblante
+      });
+      unRedoblanteMini.instrumentoView = unRedoblante;
+      this.subViews.redoblanteMini = unRedoblanteMini;
 
       // Update manualmente la primera vez
       this.update();

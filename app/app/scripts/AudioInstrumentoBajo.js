@@ -10,12 +10,7 @@
       var p = params || {};
 
       /** 
-       * @member oscilador
-       * @private
-       */
-      // this.oscilador = null;
-
-      /** 
+       * Nodo de audio que controla el volúmen/envelope de este instrumento.
        * @member gain
        * @private
        */
@@ -42,6 +37,15 @@
        */
       this.sustain = p.sustain || 0.30;
 
+      /** 
+       * Array de frecuencias, que se pueden tocar en las secuencias.
+       * El tamaño debe ser igual a this.cuantasNotas
+       *
+       * @member frecuencias
+       * @private
+       */
+      this.frecuencias = [150, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+
       this.initInstrumentoMonofonico(params);
    };
    
@@ -53,7 +57,9 @@
     * @private
     * @method tocarNota
     */
-   InstrumentoBajo.prototype.tocarNota = function(tiempo, duracion, frecuencia){
+   InstrumentoBajo.prototype.tocarNota = function(tiempo, duracion, cualNota){
+      var frecuencia = this.frecuencias[cualNota];
+
       var ctx = this.audioGraph.audioContext;
 
       var oscilador = ctx.createOscillator();
