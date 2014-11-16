@@ -67,7 +67,7 @@
       oscilador.type = 'sine';
 
       oscilador.connect(gain);
-      gain.connect(this.salida);
+      gain.connect(this.nodoVolumen);
       
       oscilador.frequency.setValueAtTime(frecuencia, tiempo);
       oscilador.start(tiempo);
@@ -91,15 +91,6 @@
       return this.gain.gain.value;
    };
 
-   /** 
-    * Conecta la salida de este instrumento a otro nodo en la gráfica de audio
-    * @public
-    * @method
-    */
-   AudioInstrumentoSeno.prototype.conectar = function(nodo){
-      this.salida = nodo;
-   };
-   
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
    global.EscuelaDeExperimentos.AudioInstrumentoSeno = AudioInstrumentoSeno;
 })(this);

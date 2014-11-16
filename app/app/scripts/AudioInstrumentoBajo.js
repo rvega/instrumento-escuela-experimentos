@@ -68,7 +68,7 @@
       oscilador.type = 'sawtooth';
 
       oscilador.connect(gain);
-      gain.connect(this.salida);
+      gain.connect(this.nodoVolumen);
       
       oscilador.frequency.setValueAtTime(frecuencia, tiempo);
       oscilador.start(tiempo);
@@ -95,15 +95,6 @@
          return 0;
       }
       return this.gain.gain.value;
-   };
-
-   /** 
-    * Conecta la salida de este instrumento a otro nodo en la gráfica de audio
-    * @public
-    * @method
-    */
-   AudioInstrumentoBajo.prototype.conectar = function(nodo){
-      this.salida = nodo;
    };
    
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

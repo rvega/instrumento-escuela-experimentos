@@ -35,11 +35,17 @@
        */
       this.voces = [];
 
+      /**
+       * @member volumen
+       */
+      this.volumen = p.volumen || 1.0;
+
       var voz = new EscuelaDeExperimentos.AudioInstrumentoSample({
          audioGraph: this.audioGraph,
          cuantasNotas: 1,
          cuantosTiempos: 16,
-         wave: 'snare'
+         wave: 'snare',
+         volumen: p.volumen
       });
       this.voces.push(voz);
 
@@ -47,7 +53,8 @@
          audioGraph: this.audioGraph,
          cuantasNotas: 1,
          cuantosTiempos: 16,
-         wave: 'kick'
+         wave: 'kick',
+         volumen: p.volumen
       });
       this.voces.push(voz);
 
@@ -55,7 +62,8 @@
          audioGraph: this.audioGraph,
          cuantasNotas: 1,
          cuantosTiempos: 16,
-         wave: 'hh-closed'
+         wave: 'hh-closed',
+         volumen: p.volumen
       });
       this.voces.push(voz);
 
@@ -63,7 +71,8 @@
          audioGraph: this.audioGraph,
          cuantasNotas: 1,
          cuantosTiempos: 16,
-         wave: 'hh-open'
+         wave: 'hh-open',
+         volumen: p.volumen
       });
       this.voces.push(voz);
    };
@@ -133,7 +142,7 @@
     * @public
     * @method
     */
-   AudioInstrumentoBateria.prototype.resetTiempo = function(nodo){
+   AudioInstrumentoBateria.prototype.resetTiempo = function(){
       for(var i in this.voces){
          var voz = this.voces[i];
          voz.resetTiempo();

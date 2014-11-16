@@ -72,7 +72,7 @@
       var context = this.audioGraph.audioContext;
       var source = context.createBufferSource();
       source.buffer = this.buffer;
-      source.connect(this.salida);
+      source.connect(this.nodoVolumen);
       source.start(tiempo); 
    };
 
@@ -81,15 +81,6 @@
       return 0;  // ????
    };
 
-   /** 
-    * Conecta la salida de este instrumento a otro nodo en la gráfica de audio
-    * @public
-    * @method
-    */
-   AudioInstrumentoSample.prototype.conectar = function(nodo){
-      this.salida = nodo;
-   };
-   
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
    global.EscuelaDeExperimentos.AudioInstrumentoSample = AudioInstrumentoSample;
 })(this);

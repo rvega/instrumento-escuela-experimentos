@@ -94,11 +94,17 @@
       this.pasoActual = 0;
 
       /** 
+       * Permite ajustar la ganancia de cada instrumento 
+       * @member volumen
+       */
+      this.volumen = p.volumen || 1.0;
+
+      /** 
        * Nodo de audio al que este instrumento envía su sonido
-       * @member salida
+       * @member NodoVolumen
        * @private
        */
-      this.salida = null;
+      this.nodoVolumen = null;
    };
 
    /** 
@@ -201,8 +207,10 @@
     * @method
     */
    AudioMixinInstrumentoMonofonico.conectar = function(nodo){
-      // jshint unused:false
-      throw new Error('AudioMixinInstrumentoMonofonico: Todos los instrumentos deben implementar el método \"conectar\"');
+      var ctx = this.audioGraph.audioContext;
+      this.nodoVolumen = ctx.createGain();
+      this.nodoVolumen.gain.setValueAtTime(this.volumen, ctx.currentTime);
+      this.nodoVolumen.connect(nodo);
    };
    
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

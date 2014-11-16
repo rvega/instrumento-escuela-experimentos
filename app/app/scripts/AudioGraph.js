@@ -54,7 +54,8 @@
       var unBajo = new EscuelaDeExperimentos.AudioInstrumentoBajo({
          audioGraph: this,
          cuantasNotas: 10,
-         cuantosTiempos: 16
+         cuantosTiempos: 16,
+         volumen: 0.2,
       });
       unBajo.conectar(this.audioContext.destination);
       this.instrumentos.bajo = unBajo;
@@ -62,7 +63,8 @@
       var unSeno1 = new EscuelaDeExperimentos.AudioInstrumentoSeno({
          audioGraph: this,
          cuantasNotas: 10,
-         cuantosTiempos: 16
+         cuantosTiempos: 16,
+         volumen: 0.2,
       });
       unSeno1.conectar(this.audioContext.destination);
       this.instrumentos.seno1 = unSeno1;
@@ -70,6 +72,7 @@
       var bateria = new EscuelaDeExperimentos.AudioInstrumentoBateria({
          audioGraph: this,
          cuantosTiempos: 16,
+         volumen: 1.0,
       });
       bateria.conectar(this.audioContext.destination);
       this.instrumentos.bateria = bateria;
@@ -77,7 +80,8 @@
       var unSeno3 = new EscuelaDeExperimentos.AudioInstrumentoSeno({
          audioGraph: this,
          cuantasNotas: 10,
-         cuantosTiempos: 16
+         cuantosTiempos: 16,
+         volumen: 0.2,
       });
       unSeno3.conectar(this.audioContext.destination);
       this.instrumentos.seno3 = unSeno3;
@@ -85,7 +89,8 @@
       var unSeno4 = new EscuelaDeExperimentos.AudioInstrumentoSeno({
          audioGraph: this,
          cuantasNotas: 10,
-         cuantosTiempos: 16
+         cuantosTiempos: 16,
+         volumen: 0.2,
       });
       unSeno4.conectar(this.audioContext.destination);
       this.instrumentos.seno4 = unSeno4;
@@ -93,7 +98,8 @@
       var unSeno5 = new EscuelaDeExperimentos.AudioInstrumentoSeno({
          audioGraph: this,
          cuantasNotas: 10,
-         cuantosTiempos: 16
+         cuantosTiempos: 16,
+         volumen: 0.2,
       });
       unSeno5.conectar(this.audioContext.destination);
       this.instrumentos.seno5 = unSeno5;
@@ -101,7 +107,8 @@
       var unSeno6 = new EscuelaDeExperimentos.AudioInstrumentoSeno({
          audioGraph: this,
          cuantasNotas: 10,
-         cuantosTiempos: 16
+         cuantosTiempos: 16,
+         volumen: 0.2,
       });
       unSeno6.conectar(this.audioContext.destination);
       this.instrumentos.seno6 = unSeno6;
