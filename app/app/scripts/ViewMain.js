@@ -46,105 +46,98 @@
          superView: this
       });
 
-      var widthMinis = this.width/8;
-      var marginMinis = 13;
-
-      // Views bajo
-      var coloresBajo = {
+      var instrumentos = this.audioGraph.instrumentos;
+      this.crearInstrumentoView( 0, 'bajo', instrumentos.bajo, {
          fondo: '#333333',
          fondoDestacado: '#464646',
          bordes: '#e63b31',
          nota: '#e63b31',
          notaDestacada: '#932822'
-      };
+      }, true);
 
-      var unBajo = new EscuelaDeExperimentos.ViewInstrumento({
-         audioInstrumento: this.audioGraph.instrumentos.bajo,
-         superView: this,
-         width: this.width * 0.6,
-         x: this.width/2,
-         y: this.height/2 + 60,
-         colores: coloresBajo,
-         visible: true
-      });
-      this.subViews.bajo = unBajo;
-      this.instrumentoActivo = unBajo;
-
-      var unBajoMini = new EscuelaDeExperimentos.ViewInstrumentoMini({
-         audioInstrumento: this.audioGraph.instrumentos.bajo,
-         superView: this,
-         width: widthMinis,
-         y: 10,
-         x: 1,
-         colores: coloresBajo,
-         activo: true
-      });
-      unBajoMini.instrumentoView = unBajo;
-      this.subViews.bajoMini = unBajoMini;
-      this.instrumentoMiniActivo = unBajoMini;
-
-      // Views Seno 1
-      var coloresSeno1 = {
+      this.crearInstrumentoView( 1, 'seno1', instrumentos.seno1, {
          fondo: '#333333',
          fondoDestacado: '#464646',
          bordes: '#fa6923',
          nota: '#fa6923',
          notaDestacada: '#af410c'
-      };
-
-      var unSeno = new EscuelaDeExperimentos.ViewInstrumento({
-         audioInstrumento: this.audioGraph.instrumentos.seno1,
-         superView: this,
-         width: this.width * 0.6,
-         x: this.width/2,
-         y: this.height/2 + 60,
-         colores: coloresSeno1
       });
-      this.subViews.seno1 = unSeno;
 
-      var unSenoMini1 = new EscuelaDeExperimentos.ViewInstrumentoMini({
-         audioInstrumento: this.audioGraph.instrumentos.seno1,
-         superView: this,
-         width: widthMinis,
-         y: 10,
-         x: 1 + widthMinis + marginMinis,
-         colores: coloresSeno1
-      });
-      unSenoMini1.instrumentoView = unSeno;
-      this.subViews.senoMini1 = unSenoMini1;
-
-      // Views redoblante
-      var coloresRedoblante = {
+      this.crearInstrumentoView( 2, 'bateria', instrumentos.bateria, {
          fondo: '#333333',
          fondoDestacado: '#464646',
          bordes: '#e63b31',
          nota: '#e63b31',
          notaDestacada: '#932822'
-      };
+      }, false, true);
 
-      var unRedoblante = new EscuelaDeExperimentos.ViewInstrumento({
-         audioInstrumento: this.audioGraph.instrumentos.redoblante,
+      // this.crearInstrumentoView( 2, 'redoblante', instrumentos.redoblante, {
+      //    fondo: '#333333',
+      //    fondoDestacado: '#464646',
+      //    bordes: '#e63b31',
+      //    nota: '#e63b31',
+      //    notaDestacada: '#932822'
+      // }, false, true);
+
+      // this.crearInstrumentoView( 3, 'bombo', instrumentos.bombo, {
+      //    fondo: '#333333',
+      //    fondoDestacado: '#464646',
+      //    bordes: '#e63b31',
+      //    nota: '#e63b31',
+      //    notaDestacada: '#932822'
+      // });
+
+      // this.crearInstrumentoView( 4, 'hhCerrado', instrumentos.hhCerrado, {
+      //    fondo: '#333333',
+      //    fondoDestacado: '#464646',
+      //    bordes: '#e63b31',
+      //    nota: '#e63b31',
+      //    notaDestacada: '#932822'
+      // });
+
+      // this.crearInstrumentoView( 5, 'hhAbierto', instrumentos.hhAbierto, {
+      //    fondo: '#333333',
+      //    fondoDestacado: '#464646',
+      //    bordes: '#e63b31',
+      //    nota: '#e63b31',
+      //    notaDestacada: '#932822'
+      // });
+
+      // Update manualmente la primera vez
+      this.update();
+   };
+
+   ViewMain.prototype.crearInstrumentoView = function(i, nombreInstancia, audioInstrumento, colores, activo, polifonico){
+      activo = !!activo;
+
+      var unViewInstrumento = new EscuelaDeExperimentos.ViewInstrumento({
+         audioInstrumento: audioInstrumento,
          superView: this,
          width: this.width * 0.6,
          x: this.width/2,
          y: this.height/2 + 60,
-         colores: coloresRedoblante,
+         colores: colores,
+         visible: activo,
+         polifonico: polifonico
       });
-      this.subViews.redoblante = unRedoblante;
+      this.subViews[nombreInstancia] = unViewInstrumento;
 
-      var unRedoblanteMini = new EscuelaDeExperimentos.ViewInstrumentoMini({
-         audioInstrumento: this.audioGraph.instrumentos.redoblante,
+      var unViewInstrumentoMini = new EscuelaDeExperimentos.ViewInstrumentoMini({
+         audioInstrumento: audioInstrumento,
          superView: this,
-         width: widthMinis,
+         width: this.width/8,
          y: 10,
-         x: 1 + 2*(widthMinis + marginMinis),
-         colores: coloresRedoblante
+         x: 1 + i*(this.width/8 + 13),
+         colores: colores,
+         activo: activo
       });
-      unRedoblanteMini.instrumentoView = unRedoblante;
-      this.subViews.redoblanteMini = unRedoblanteMini;
+      unViewInstrumentoMini.instrumentoView = unViewInstrumento;
+      this.subViews[nombreInstancia + 'Mini'] = unViewInstrumentoMini;
 
-      // Update manualmente la primera vez
-      this.update();
+      if(activo===true){
+         this.instrumentoMiniActivo = unViewInstrumentoMini;
+         this.instrumentoActivo = unViewInstrumento;
+      }
    };
 
    ViewMain.prototype.update = function(){

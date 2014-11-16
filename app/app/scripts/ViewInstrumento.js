@@ -43,6 +43,12 @@
        */
       this.audioInstrumento = p.audioInstrumento;
 
+      /** 
+       * Es posible tener varias notas activas en una columna?
+       * @member polifonico
+       */
+      this.polifonico = p.polifonico || false;
+
 
       /** 
        * @member rueda
@@ -54,7 +60,8 @@
          x: this.x,
          y: this.y,
          width: this.width,
-         colores: p.colores
+         colores: p.colores,
+         polifonico: this.polifonico
       });
 
       if(this.visible){

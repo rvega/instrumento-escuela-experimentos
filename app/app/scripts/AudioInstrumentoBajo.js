@@ -4,9 +4,9 @@
    'use strict';
 
    /** 
-    * @constructor InstrumentoBajo
+    * @constructor AudioInstrumentoBajo
     */
-   var InstrumentoBajo = function(params){
+   var AudioInstrumentoBajo = function(params){
       var p = params || {};
 
       /** 
@@ -50,14 +50,14 @@
    };
    
    // Heredar los métodos de MixinInstrumentoMonofonico
-   EscuelaDeExperimentos.Utility.mixin(InstrumentoBajo.prototype, EscuelaDeExperimentos.AudioMixinInstrumentoMonofonico);
+   EscuelaDeExperimentos.Utility.mixin(AudioInstrumentoBajo.prototype, EscuelaDeExperimentos.AudioMixinInstrumentoMonofonico);
 
    /** 
     * Suena una nota.
     * @private
     * @method tocarNota
     */
-   InstrumentoBajo.prototype.tocarNota = function(tiempo, duracion, cualNota){
+   AudioInstrumentoBajo.prototype.tocarNota = function(tiempo, duracion, cualNota){
       var frecuencia = this.frecuencias[cualNota];
 
       var ctx = this.audioGraph.audioContext;
@@ -90,7 +90,7 @@
    };
 
 
-   InstrumentoBajo.prototype.getGain = function(){
+   AudioInstrumentoBajo.prototype.getGain = function(){
       if(this.gain===null){
          return 0;
       }
@@ -102,10 +102,10 @@
     * @public
     * @method
     */
-   InstrumentoBajo.prototype.conectar = function(nodo){
+   AudioInstrumentoBajo.prototype.conectar = function(nodo){
       this.salida = nodo;
    };
    
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
-   global.EscuelaDeExperimentos.InstrumentoBajo = InstrumentoBajo;
+   global.EscuelaDeExperimentos.AudioInstrumentoBajo = AudioInstrumentoBajo;
 })(this);

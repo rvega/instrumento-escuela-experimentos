@@ -4,9 +4,9 @@
    'use strict';
 
    /** 
-    * @constructor InstrumentoSample
+    * @constructor AudioInstrumentoSample
     */
-   var InstrumentoSample = function(params){
+   var AudioInstrumentoSample = function(params){
       var p = params || {};
 
       /** 
@@ -26,14 +26,14 @@
    };
    
    // Heredar los métodos de MixinInstrumentoMonofonico
-   EscuelaDeExperimentos.Utility.mixin(InstrumentoSample.prototype, EscuelaDeExperimentos.AudioMixinInstrumentoMonofonico);
+   EscuelaDeExperimentos.Utility.mixin(AudioInstrumentoSample.prototype, EscuelaDeExperimentos.AudioMixinInstrumentoMonofonico);
 
    /** 
     * Descarga el archivo de audio que va a sonar
     * @private
     * @method tocarNota
     */
-   InstrumentoSample.prototype.descargarAudio = function(){
+   AudioInstrumentoSample.prototype.descargarAudio = function(){
       var a = document.createElement('audio');
       var canPlayOgg = !!(a.canPlayType && a.canPlayType('audio/ogg; codecs="vorbis"').replace(/no/, ''));
       var canPlayMp3 = !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
@@ -53,7 +53,7 @@
       request.send();
    };
 
-   InstrumentoSample.prototype.terminoDescargaAudio = function(e){
+   AudioInstrumentoSample.prototype.terminoDescargaAudio = function(e){
       var response = e.target.response;
       var self = this;
       this.audioGraph.audioContext.decodeAudioData(response, function(buffer) {
@@ -68,7 +68,7 @@
     * @private
     * @method tocarNota
     */
-   InstrumentoSample.prototype.tocarNota = function(tiempo){
+   AudioInstrumentoSample.prototype.tocarNota = function(tiempo){
       var context = this.audioGraph.audioContext;
       var source = context.createBufferSource();
       source.buffer = this.buffer;
@@ -77,7 +77,7 @@
    };
 
 
-   InstrumentoSample.prototype.getGain = function(){
+   AudioInstrumentoSample.prototype.getGain = function(){
       return 0;  // ????
    };
 
@@ -86,10 +86,10 @@
     * @public
     * @method
     */
-   InstrumentoSample.prototype.conectar = function(nodo){
+   AudioInstrumentoSample.prototype.conectar = function(nodo){
       this.salida = nodo;
    };
    
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
-   global.EscuelaDeExperimentos.InstrumentoSample = InstrumentoSample;
+   global.EscuelaDeExperimentos.AudioInstrumentoSample = AudioInstrumentoSample;
 })(this);

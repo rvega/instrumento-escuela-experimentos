@@ -51,7 +51,7 @@
 
 
       // Crear instancias de los instrumentos y conectarlos.
-      var unBajo = new EscuelaDeExperimentos.InstrumentoBajo({
+      var unBajo = new EscuelaDeExperimentos.AudioInstrumentoBajo({
          audioGraph: this,
          cuantasNotas: 10,
          cuantosTiempos: 16
@@ -59,7 +59,7 @@
       unBajo.conectar(this.audioContext.destination);
       this.instrumentos.bajo = unBajo;
 
-      var unSeno1 = new EscuelaDeExperimentos.InstrumentoSeno({
+      var unSeno1 = new EscuelaDeExperimentos.AudioInstrumentoSeno({
          audioGraph: this,
          cuantasNotas: 10,
          cuantosTiempos: 16
@@ -67,14 +67,13 @@
       unSeno1.conectar(this.audioContext.destination);
       this.instrumentos.seno1 = unSeno1;
 
-      var unRedoblante = new EscuelaDeExperimentos.InstrumentoSample({
+      var bateria = new EscuelaDeExperimentos.AudioInstrumentoBateria({
          audioGraph: this,
-         cuantasNotas: 1,
          cuantosTiempos: 16,
-         wave: 'snare'
       });
-      unRedoblante.conectar(this.audioContext.destination);
-      this.instrumentos.redoblante = unRedoblante;
+      bateria.conectar(this.audioContext.destination);
+      this.instrumentos.bateria = bateria;
+
       
       // Ejecutar el planificador de eventos cada periodo
       setInterval(this.tick.bind(this), this.periodoTick*1000);

@@ -60,6 +60,12 @@
       this.cuantosTiempos = p.cuantosTiempos || this.audioInstrumento.cuantosTiempos;
 
       /** 
+       * Es posible tener varias notas activas en una columna?
+       * @member polifonico
+       */
+      this.polifonico = p.polifonico || false;
+
+      /** 
        * Cada elemento de este array es una "columna" o "radio" de botones 
        * @member botones
        */
@@ -112,15 +118,17 @@
    ViewRueda.prototype.clickBoton = function(e){
       var btn = e.target;
 
-      // Desactivar otros botones de esta columna
-      var col = this.botones[btn.columna];
-      for(var i=0; i<col.length; i++){
-         var otroBtn = col[i]; 
-         if(otroBtn !== btn && otroBtn.activo){
-            otroBtn.activo = false;
-            otroBtn.fill(this.colores.fondo);
-            otroBtn.draw();
-            break;
+      if(!this.polifonico){
+         // Desactivar otros botones de esta columna
+         var col = this.botones[btn.columna];
+         for(var i=0; i<col.length; i++){
+            var otroBtn = col[i]; 
+            if(otroBtn !== btn && otroBtn.activo){
+               otroBtn.activo = false;
+               otroBtn.fill(this.colores.fondo);
+               otroBtn.draw();
+               break;
+            }
          }
       }
 
@@ -128,12 +136,22 @@
       if(!btn.activo){
          btn.activo = true;
          btn.fill(this.colores.nota);
-         this.audioInstrumento.secuencia[btn.columna] = btn.fila;
+         if(!this.polifonico){
+            this.audioInstrumento.setNotaSecuencia(btn.columna, btn.fila);
+         }
+         else{
+            this.audioInstrumento.setNotaSecuencia(btn.columna, btn.fila, 1);
+         }
       }
       else{
          btn.activo = false;
          btn.fill(this.colores.fondo);
-         this.audioInstrumento.secuencia[btn.columna] = -1;
+         if(!this.polifonico){
+            this.audioInstrumento.setNotaSecuencia(btn.columna, -1);
+         }
+         else{
+            this.audioInstrumento.setNotaSecuencia(btn.columna, btn.fila, -1);
+         }
       }
       btn.draw();
    };

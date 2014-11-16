@@ -22,9 +22,9 @@
       this.cuantosTiempos = p.cuantosTiempos || 16;
 
       /** 
-       * Array de notas que conforman una secuencia. 0 es silencio, 
-       * 1 es la primera frecuencia en el array "notas", 2 es la segunda freq en 
-       * el array "notas", etc.
+       * Array de notas que conforman una secuencia. -1 es silencio, 
+       * 0 es la primera frecuencia en el array "frecuencias", 1 es la segunda freq en 
+       * el array "frecuencias", etc.
        *
        * @member secuencia
        * @public
@@ -124,7 +124,7 @@
    /** 
     * Devuelve el paso que está sonando (o en silencio) en este momento 
     * @public
-    * @method programarNotas
+    * @method getPasoActual
     */
    AudioMixinInstrumentoMonofonico.getPasoActual = function(tiempo){
       while(this.notasEnFila.length && this.notasEnFila[0].tiempo<tiempo) {
@@ -183,6 +183,16 @@
             this.notaActual = 0;
          }
       }
+   };
+
+
+   /** 
+    * Cambia una nota de la secuencia
+    * @public
+    * @method setNotaSecuencia
+    */
+   AudioMixinInstrumentoMonofonico.setNotaSecuencia = function(columna, nota){
+      this.secuencia[columna] = nota;
    };
 
    /** 
