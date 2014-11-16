@@ -74,6 +74,37 @@
       bateria.conectar(this.audioContext.destination);
       this.instrumentos.bateria = bateria;
 
+      var unSeno3 = new EscuelaDeExperimentos.AudioInstrumentoSeno({
+         audioGraph: this,
+         cuantasNotas: 10,
+         cuantosTiempos: 16
+      });
+      unSeno3.conectar(this.audioContext.destination);
+      this.instrumentos.seno3 = unSeno3;
+
+      var unSeno4 = new EscuelaDeExperimentos.AudioInstrumentoSeno({
+         audioGraph: this,
+         cuantasNotas: 10,
+         cuantosTiempos: 16
+      });
+      unSeno4.conectar(this.audioContext.destination);
+      this.instrumentos.seno4 = unSeno4;
+
+      var unSeno5 = new EscuelaDeExperimentos.AudioInstrumentoSeno({
+         audioGraph: this,
+         cuantasNotas: 10,
+         cuantosTiempos: 16
+      });
+      unSeno5.conectar(this.audioContext.destination);
+      this.instrumentos.seno5 = unSeno5;
+
+      var unSeno6 = new EscuelaDeExperimentos.AudioInstrumentoSeno({
+         audioGraph: this,
+         cuantasNotas: 10,
+         cuantosTiempos: 16
+      });
+      unSeno6.conectar(this.audioContext.destination);
+      this.instrumentos.seno6 = unSeno6;
       
       // Ejecutar el planificador de eventos cada periodo
       setInterval(this.tick.bind(this), this.periodoTick*1000);

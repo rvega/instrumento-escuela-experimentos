@@ -47,68 +47,112 @@
       });
 
       var instrumentos = this.audioGraph.instrumentos;
-      this.crearInstrumentoView( 0, 'bajo', instrumentos.bajo, {
-         fondo: '#333333',
-         fondoDestacado: '#464646',
-         bordes: '#e63b31',
-         nota: '#e63b31',
-         notaDestacada: '#932822'
-      }, true);
-
-      this.crearInstrumentoView( 1, 'seno1', instrumentos.seno1, {
-         fondo: '#333333',
-         fondoDestacado: '#464646',
-         bordes: '#fa6923',
-         nota: '#fa6923',
-         notaDestacada: '#af410c'
+      this.crearInstrumentoView({
+         i:0, 
+         nombreInstancia: 'bajo', 
+         audioInstrumento: instrumentos.bajo, 
+         activo:true,
+         colores:{
+            fondo: '#333333',
+            fondoDestacado: '#464646',
+            bordes: '#e63b31',
+            nota: '#e63b31',
+            notaDestacada: '#932822'
+         }
       });
 
-      this.crearInstrumentoView( 2, 'bateria', instrumentos.bateria, {
-         fondo: '#333333',
-         fondoDestacado: '#464646',
-         bordes: '#e63b31',
-         nota: '#e63b31',
-         notaDestacada: '#932822'
-      }, false, true);
+      this.crearInstrumentoView({
+         i:1, 
+         nombreInstancia: 'seno1', 
+         audioInstrumento: instrumentos.seno1, 
+         colores:{
+            fondo: '#333333',
+            fondoDestacado: '#464646',
+            bordes: '#fa6923',
+            nota: '#fa6923',
+            notaDestacada: '#af410c'
+         }
+      });
 
-      // this.crearInstrumentoView( 2, 'redoblante', instrumentos.redoblante, {
-      //    fondo: '#333333',
-      //    fondoDestacado: '#464646',
-      //    bordes: '#e63b31',
-      //    nota: '#e63b31',
-      //    notaDestacada: '#932822'
-      // }, false, true);
+      this.crearInstrumentoView({
+         i:2, 
+         nombreInstancia: 'bateria', 
+         audioInstrumento: instrumentos.bateria, 
+         polifonico: true,
+         cuantasNotasMini: 3,
+         colores:{
+            fondo: '#333333',
+            fondoDestacado: '#464646',
+            bordes: '#e6aa1c',
+            nota: '#e6aa1c',
+            notaDestacada: '#9e7513'
+         }
+      });
 
-      // this.crearInstrumentoView( 3, 'bombo', instrumentos.bombo, {
-      //    fondo: '#333333',
-      //    fondoDestacado: '#464646',
-      //    bordes: '#e63b31',
-      //    nota: '#e63b31',
-      //    notaDestacada: '#932822'
-      // });
+      this.crearInstrumentoView({
+         i:3, 
+         nombreInstancia: 'seno3', 
+         audioInstrumento: instrumentos.seno3, 
+         colores:{
+            fondo: '#333333',
+            fondoDestacado: '#464646',
+            bordes: '#7fa51e',
+            nota: '#7fa51e',
+            notaDestacada: '#577115'
+         }
+      });
 
-      // this.crearInstrumentoView( 4, 'hhCerrado', instrumentos.hhCerrado, {
-      //    fondo: '#333333',
-      //    fondoDestacado: '#464646',
-      //    bordes: '#e63b31',
-      //    nota: '#e63b31',
-      //    notaDestacada: '#932822'
-      // });
+      this.crearInstrumentoView({
+         i:4, 
+         nombreInstancia: 'seno4', 
+         audioInstrumento: instrumentos.seno4, 
+         colores:{
+            fondo: '#333333',
+            fondoDestacado: '#464646',
+            bordes: '#08b3a0',
+            nota: '#08b3a0',
+            notaDestacada: '#057b63'
+         }
+      });
 
-      // this.crearInstrumentoView( 5, 'hhAbierto', instrumentos.hhAbierto, {
-      //    fondo: '#333333',
-      //    fondoDestacado: '#464646',
-      //    bordes: '#e63b31',
-      //    nota: '#e63b31',
-      //    notaDestacada: '#932822'
-      // });
+      this.crearInstrumentoView({
+         i:5, 
+         nombreInstancia: 'seno5', 
+         audioInstrumento: instrumentos.seno5, 
+         colores:{
+            fondo: '#333333',
+            fondoDestacado: '#464646',
+            bordes: '#0ba6e6',
+            nota: '#08a6e6',
+            notaDestacada: '#08729e'
+         }
+      });
+
+      this.crearInstrumentoView({
+         i:6, 
+         nombreInstancia: 'seno6', 
+         audioInstrumento: instrumentos.seno6, 
+         colores:{
+            fondo: '#333333',
+            fondoDestacado: '#464646',
+            bordes: '#cc89fd',
+            nota: '#cc89fd',
+            notaDestacada: '#0c5eae'
+         }
+      });
 
       // Update manualmente la primera vez
       this.update();
    };
 
-   ViewMain.prototype.crearInstrumentoView = function(i, nombreInstancia, audioInstrumento, colores, activo, polifonico){
-      activo = !!activo;
+   ViewMain.prototype.crearInstrumentoView = function(p){
+      var i = p.i;
+      var nombreInstancia = p.nombreInstancia;
+      var audioInstrumento = p.audioInstrumento;
+      var colores = p.colores;
+      var activo = p.activo;
+      var polifonico = p.polifonico;
+      var cuantasNotasMini = p.cuantasNotasMini;
 
       var unViewInstrumento = new EscuelaDeExperimentos.ViewInstrumento({
          audioInstrumento: audioInstrumento,
@@ -129,7 +173,8 @@
          y: 10,
          x: 1 + i*(this.width/8 + 13),
          colores: colores,
-         activo: activo
+         activo: activo,
+         cuantasNotas: cuantasNotasMini
       });
       unViewInstrumentoMini.instrumentoView = unViewInstrumento;
       this.subViews[nombreInstancia + 'Mini'] = unViewInstrumentoMini;

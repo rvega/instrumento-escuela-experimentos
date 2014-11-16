@@ -70,7 +70,7 @@
          x: this.x + this.width/2,
          y: this.y + this.width/2,
          width: this.width*0.85,
-         cuantasNotas: 5,
+         cuantasNotas: p.cuantasNotas,
          cuantosTiempos: 8,
          colores: colores
       });

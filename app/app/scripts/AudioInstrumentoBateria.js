@@ -128,6 +128,17 @@
          voz.conectar(nodo);
       }
    };
+
+   /** 
+    * @public
+    * @method
+    */
+   AudioInstrumentoBateria.prototype.resetTiempo = function(nodo){
+      for(var i in this.voces){
+         var voz = this.voces[i];
+         voz.resetTiempo();
+      }
+   };
    
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
    global.EscuelaDeExperimentos.AudioInstrumentoBateria = AudioInstrumentoBateria;
