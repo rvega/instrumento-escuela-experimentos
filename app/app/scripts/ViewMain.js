@@ -63,8 +63,8 @@
 
       this.crearInstrumentoView({
          i:1, 
-         nombreInstancia: 'seno1', 
-         audioInstrumento: instrumentos.seno1, 
+         nombreInstancia: 'lead', 
+         audioInstrumento: instrumentos.lead, 
          colores:{
             fondo: '#333333',
             fondoDestacado: '#464646',

@@ -23,8 +23,8 @@
 
       /** 
        * Array de notas que conforman una secuencia. -1 es silencio, 
-       * 0 es la primera frecuencia en el array "frecuencias", 1 es la segunda freq en 
-       * el array "frecuencias", etc.
+       * 0 es la primera frecuencia en el array "frecuencias", 1 es la segunda 
+       * freq en el array "frecuencias", etc.
        *
        * @member secuencia
        * @public
@@ -169,10 +169,8 @@
       var duracionNota = 60.0/bpm;
       var cualNota;
       while(this.tiempoNotaProxima < tiempoAudio+this.tiempoMirarFuturo){
-         if(this.secuencia[this.notaActual] !== -1){
-            cualNota = this.secuencia[this.notaActual];
-            this.tocarNota(this.tiempoNotaProxima+tiempoInicial, duracionNota, cualNota);
-         }
+         cualNota = this.secuencia[this.notaActual];
+         this.tocarNota(this.tiempoNotaProxima+tiempoInicial, duracionNota, cualNota);
 
          // tambien pongo "silencios" en el queue para que la ruedita siempre
          // gire en el view (no solamente cuando hay notas)

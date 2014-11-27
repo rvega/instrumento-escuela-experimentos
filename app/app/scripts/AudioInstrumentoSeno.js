@@ -20,30 +20,32 @@
        * @member ataque
        * @private
        */
-      this.ataque = p.ataque || 0.1;
+      this.ataque = p.ataque || 0.01;
 
       /** 
        * Tiempo de descarga en segs
        * @member descarga
        * @private
        */
-      this.descarga = p.descarga || 0.20;
+      this.descarga = p.descarga || 0.6;
 
       /** 
        * Tiempo de sustain (porcentaje de la duracion de la nota segun el tempo)
        * @member sustain
        * @private
        */
-      this.sustain = p.sustain || 0.50;
+      this.sustain = p.sustain || 0.99;
 
       /** 
-       * Array de frecuencias, que se pueden tocar en las secuencias.
+       * Array de posiblesNotas, que se pueden tocar en las secuencias.
        * El tamaño debe ser igual a this.cuantasNotas
        *
-       * @member frecuencias
+       * @member posiblesNotas
        * @private
        */
-      this.frecuencias = [150, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+      // this.posiblesNotas = [150, 200, 300, 400, 500, 600, 700, 800, 900, 1000];
+      this.posiblesNotas = ['A4', 'C5', 'D5', 'E5', 'G5', 'A5', 'C6', 'D6', 'E6', 'G6']; 
+      params.cuantasNotas = this.posiblesNotas.length;
 
       this.initInstrumentoMonofonico(params);
    };
@@ -57,14 +59,18 @@
     * @method tocarNota
     */
    AudioInstrumentoSeno.prototype.tocarNota = function(tiempo, duracion, cualNota){
-      var frecuencia = this.frecuencias[cualNota];
-      
+      if(cualNota === -1){
+         return;
+      }
+
+      var frecuencia = EscuelaDeExperimentos.Midi.note2freq(this.posiblesNotas[cualNota]);
+
       var ctx = this.audioGraph.audioContext;
 
       var oscilador = ctx.createOscillator();
       var gain = ctx.createGain();
 
-      oscilador.type = 'sine';
+      oscilador.type = 'sawtooth';
 
       oscilador.connect(gain);
       gain.connect(this.nodoVolumen);

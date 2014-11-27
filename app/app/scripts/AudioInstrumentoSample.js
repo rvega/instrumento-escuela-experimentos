@@ -68,7 +68,11 @@
     * @private
     * @method tocarNota
     */
-   AudioInstrumentoSample.prototype.tocarNota = function(tiempo){
+   AudioInstrumentoSample.prototype.tocarNota = function(tiempo, duracion, cualNota){
+      if(cualNota === -1){
+         return;
+      }
+
       var context = this.audioGraph.audioContext;
       var source = context.createBufferSource();
       source.buffer = this.buffer;
