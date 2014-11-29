@@ -88,6 +88,7 @@
    ViewRueda.prototype.coloresDefault = {
       bordes: '#fa6923',
       fondo: '#333333',
+      fondoCardinal: '#262626',
       fondoDestacado: '#464646',
       notaDestacada: '#fa6923',
       nota: '#af410c'
@@ -106,7 +107,13 @@
          btn.fill(this.colores.nota);
       }
       else{
-         btn.fill(this.colores.fondo);
+         var angulo = btn.columna;
+         if((angulo===0 || angulo===4 || angulo===8 || angulo===12) && this.cuantosTiempos===16){
+            btn.fill(this.colores.fondoCardinal);
+         }
+         else{
+            btn.fill(this.colores.fondo);
+         }
       }
       btn.draw();
       document.body.style.cursor = 'default';
@@ -162,7 +169,7 @@
     * @function polar2cart
     */
    ViewRueda.prototype.polar2cart = function(angulo, radio){
-      angulo -= 90; // cero grados al norte
+      angulo += 90; // cero grados al sur
       angulo *= -1; // rotación hacia la derecha
       var x = this.x + radio*Math.cos(angulo*Math.PI/180);
       var y = this.y - radio*Math.sin(angulo*Math.PI/180);
@@ -191,6 +198,12 @@
       var tamanoBotonAngulo = 0.9*espacioBotonAngulo;
 
       for(var angulo=0; angulo<cuantosBotonesPorVuelta; angulo++) {
+         // Dibujar los fondos de la columna norte, sur, oriente y occidente 
+         // de otro color
+         var colorFondo = this.colores.fondo;
+         if((angulo===0 || angulo===4 || angulo===8 || angulo===12) && this.cuantosTiempos===16){
+            colorFondo = this.colores.fondoCardinal;
+         }
          var columna = [];
          for(var radio=0; radio<cuantosBotonesPorRadio; radio++) {
             var r = radio*espacioBotonRadio;
@@ -227,7 +240,7 @@
                          radioOffset + r);
 
             var b = new Kinetic.Line({
-               fill: this.colores.fondo,
+               fill: colorFondo,
                stroke: this.colores.bordes,
                strokeWidth: this.width>100 ? 2 : 1,
                closed: true,
@@ -286,7 +299,13 @@
             boton.fill(this.colores.nota);
          }
          else{
-            boton.fill(this.colores.fondo);
+            if((cualColumna===0 || cualColumna===4 || cualColumna===8 || cualColumna===12) && this.cuantosTiempos===16){
+               boton.fill(this.colores.fondoCardinal);
+            }
+            else{
+               boton.fill(this.colores.fondo);
+            }
+
          }
          boton.draw();
       }

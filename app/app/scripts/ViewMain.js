@@ -54,6 +54,7 @@
          activo:true,
          colores:{
             fondo: '#333333',
+            fondoCardinal: '#262626',
             fondoDestacado: '#464646',
             bordes: '#e63b31',
             nota: '#e63b31',
@@ -67,6 +68,7 @@
          audioInstrumento: instrumentos.lead, 
          colores:{
             fondo: '#333333',
+            fondoCardinal: '#262626',
             fondoDestacado: '#464646',
             bordes: '#fa6923',
             nota: '#fa6923',
@@ -82,6 +84,7 @@
          cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',
+            fondoCardinal: '#262626',
             fondoDestacado: '#464646',
             bordes: '#e6aa1c',
             nota: '#e6aa1c',
@@ -95,6 +98,7 @@
          audioInstrumento: instrumentos.seno3, 
          colores:{
             fondo: '#333333',
+            fondoCardinal: '#262626',
             fondoDestacado: '#464646',
             bordes: '#7fa51e',
             nota: '#7fa51e',
@@ -108,6 +112,7 @@
          audioInstrumento: instrumentos.seno4, 
          colores:{
             fondo: '#333333',
+            fondoCardinal: '#262626',
             fondoDestacado: '#464646',
             bordes: '#08b3a0',
             nota: '#08b3a0',
@@ -121,6 +126,7 @@
          audioInstrumento: instrumentos.seno5, 
          colores:{
             fondo: '#333333',
+            fondoCardinal: '#262626',
             fondoDestacado: '#464646',
             bordes: '#0ba6e6',
             nota: '#08a6e6',
@@ -134,6 +140,7 @@
          audioInstrumento: instrumentos.seno6, 
          colores:{
             fondo: '#333333',
+            fondoCardinal: '#262626',
             fondoDestacado: '#464646',
             bordes: '#cc89fd',
             nota: '#cc89fd',

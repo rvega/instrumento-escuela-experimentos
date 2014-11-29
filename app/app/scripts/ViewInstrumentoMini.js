@@ -42,7 +42,7 @@
       /** 
        * @member colores
        */
-      this.colores = p.colores || this.superView.coloresDefault;
+      this.colores = p.colores;
 
       this.activo = p.activo || false;
 
