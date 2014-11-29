@@ -147,6 +147,9 @@
     */
    AudioGraph.prototype.stop = function(){
       this.playing = false; 
+      for(var instrumento in this.instrumentos){
+         this.instrumentos[instrumento].stop();
+      }
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

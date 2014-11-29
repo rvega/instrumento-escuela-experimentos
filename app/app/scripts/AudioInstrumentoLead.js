@@ -80,6 +80,19 @@
    );
 
    /**
+    * Stop
+    * @private
+    * @method stop
+    */
+   AudioInstrumentoLead.prototype.stop = function(){
+      var t = this.audioGraph.audioContext.currentTime;
+      this.envelope.gain.cancelScheduledValues(t);
+      this.envelope.gain.linearRampToValueAtTime(0, t+this.descarga);
+      this.silencioPrevio = true;
+      this.frecuenciaAnterior=-2;
+   };
+
+   /**
     * Suena una nota.
     * @private
     * @method tocarNota

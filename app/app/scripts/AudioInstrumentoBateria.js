@@ -139,6 +139,15 @@
    };
 
    /** 
+    * stopla salida de este instrumento a otro nodo en la gráfica de audio
+    * @public
+    * @method stop
+    */
+   AudioInstrumentoBateria.prototype.stop = function(){
+      // nada
+   };
+
+   /** 
     * @public
     * @method
     */

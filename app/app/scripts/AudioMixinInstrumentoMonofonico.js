@@ -118,6 +118,15 @@
    };
 
    /** 
+    * stop
+    * @public
+    * @method stop
+    */
+   AudioMixinInstrumentoMonofonico.stop = function(){
+      // hace nada por default
+   };
+
+   /** 
     * Devuelve el gain actual del instrumento. Para que los views dibujen
     * cosas 
     * @public
