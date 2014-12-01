@@ -107,7 +107,11 @@
     * @method getPasoActual
     */
    AudioInstrumentoBateria.prototype.getPasoActual = function(tiempo){
-      return this.voces[0].getPasoActual(tiempo);
+      var paso;
+      for(var i in this.voces){
+         paso = this.voces[i].getPasoActual(tiempo);
+      }
+      return paso;
    };
 
    /** 

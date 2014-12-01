@@ -49,9 +49,24 @@
       var instrumentos = this.audioGraph.instrumentos;
       this.crearInstrumentoView({
          i:0, 
+         nombreInstancia: 'bateria', 
+         audioInstrumento: instrumentos.bateria, 
+         activo:true,
+         polifonico: true,
+         cuantasNotasMini: 3,
+         colores:{
+            fondo: '#333333',
+            fondoCardinal: '#262626',
+            fondoDestacado: '#464646',
+            bordes: '#e6aa1c',
+            nota: '#e6aa1c',
+            notaDestacada: '#9e7513'
+         }
+      });
+      this.crearInstrumentoView({
+         i:1, 
          nombreInstancia: 'bajo', 
          audioInstrumento: instrumentos.bajo, 
-         activo:true,
          colores:{
             fondo: '#333333',
             fondoCardinal: '#262626',
@@ -63,7 +78,7 @@
       });
 
       this.crearInstrumentoView({
-         i:1, 
+         i:2, 
          nombreInstancia: 'lead', 
          audioInstrumento: instrumentos.lead, 
          colores:{
@@ -76,21 +91,6 @@
          }
       });
 
-      this.crearInstrumentoView({
-         i:2, 
-         nombreInstancia: 'bateria', 
-         audioInstrumento: instrumentos.bateria, 
-         polifonico: true,
-         cuantasNotasMini: 3,
-         colores:{
-            fondo: '#333333',
-            fondoCardinal: '#262626',
-            fondoDestacado: '#464646',
-            bordes: '#e6aa1c',
-            nota: '#e6aa1c',
-            notaDestacada: '#9e7513'
-         }
-      });
 
       this.crearInstrumentoView({
          i:3, 

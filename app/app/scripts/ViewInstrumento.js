@@ -95,9 +95,9 @@
     * @public
     */
    ViewInstrumento.prototype.update = function(tiempoAudio){
+      var i = this.audioInstrumento;
+      var paso = i.getPasoActual(tiempoAudio);
       if(this.visible){
-         var i = this.audioInstrumento;
-         var paso = i.getPasoActual(tiempoAudio);
          this.rueda.destacarColumna(paso);
       }
    };

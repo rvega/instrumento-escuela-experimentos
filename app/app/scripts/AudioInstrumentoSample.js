@@ -94,7 +94,7 @@
    };
 
    AudioInstrumentoSample.prototype.getGain = function(tiempo){
-      var on = this.secuencia[this.getPasoActual(tiempo)] !== -1;
+      var on = this.secuencia[this.pasoActual] !== -1;
       if(on){
          var duracionNota = 60.0/this.audioGraph.tempo;
          var t = tiempo%duracionNota;
