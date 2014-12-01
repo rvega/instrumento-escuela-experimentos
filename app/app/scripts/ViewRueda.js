@@ -1,4 +1,5 @@
 /* global Kinetic */
+/* global EscuelaDeExperimentos */
 
 (function(global){
    'use strict';
@@ -103,7 +104,7 @@
    };
 
    ViewRueda.prototype.mouseover = function(e){
-      var btn = e.target
+      var btn = e.target;
       btn.fill(this.colores.fondoDestacado);
       btn.draw();
       document.body.style.cursor = 'pointer';

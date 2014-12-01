@@ -116,14 +116,15 @@
     * @public
     * @method getGain
     */
-   AudioInstrumentoBateria.prototype.getGain = function(){
+   AudioInstrumentoBateria.prototype.getGain = function(tiempo){
       var suma = 0;
       for(var i in this.voces){
          var voz = this.voces[i];
-         suma += voz.getGain();
+         suma += 2*voz.getGain(tiempo);
       }
 
-      return suma/this.voces.length;
+      suma = suma/this.voces.length;
+      return suma>1 ? 1 : suma;
    };
 
    /** 

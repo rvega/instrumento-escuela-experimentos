@@ -107,6 +107,7 @@
       if(this.gain===null){
          return 0;
       }
+      // return this.gain.gain.valu * this.volumen;
       return this.gain.gain.value;
    };
    

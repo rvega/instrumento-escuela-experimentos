@@ -9,17 +9,16 @@
    var AudioInstrumentoLead = function(params){
       var p = params || {};
 
-      /** 
-       * @member gain
-       * @private
-       */
-      this.gain = null;
 
       // TODO: doc
       this.trianguloVolumen = 1;
       this.cuadrado1Volumen = 0.6;
       this.cuadrado2Volumen = 0.6;
       this.silencioPrevio = true; 
+      this.gainTriangulo = null;
+      this.gainCuadrado1 = null;
+      this.gainCuadrado2 = null;
+      this.envelope = null;
 
       /** 
        * Tiempo de ataque en segundos
@@ -190,11 +189,11 @@
    };
 
    AudioInstrumentoLead.prototype.getGain = function(){
-      return 0;
-      // if(this.gain===null){
-      //    return 0;
-      // }
-      // return this.envelope.gain.value;
+      if(this.envelope===null){
+         return 0;
+      }
+      // return this.envelope.gain.value * this.volumen * (this.trianguloVolumen + this.cuadrado1Volumen + this.cuadrado2Volumen);
+      return this.envelope.gain.value;
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

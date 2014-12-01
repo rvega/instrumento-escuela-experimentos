@@ -78,11 +78,48 @@
       source.buffer = this.buffer;
       source.connect(this.nodoVolumen);
       source.start(tiempo); 
+      source.stop(tiempo + 3*duracion);
+      
+      // source.connect(this.analizador);
    };
 
+   AudioInstrumentoSample.prototype.conectar = function(nodo){
+      var ctx = this.audioGraph.audioContext;
+      this.nodoVolumen = ctx.createGain();
+      this.nodoVolumen.gain.setValueAtTime(this.volumen, ctx.currentTime);
+      this.nodoVolumen.connect(nodo);
 
-   AudioInstrumentoSample.prototype.getGain = function(){
-      return 0;  // ????
+      // this.analizador = ctx.createAnalyser();
+      // this.analizador.fftSize = 2048;
+   };
+
+   AudioInstrumentoSample.prototype.getGain = function(tiempo){
+      var on = this.secuencia[this.getPasoActual(tiempo)] !== -1;
+      if(on){
+         var duracionNota = 60.0/this.audioGraph.tempo;
+         var t = tiempo%duracionNota;
+         // Solo mostrar gain en 1 si el tiempo está cercano al inicio
+         // de la nota (ataque). Es percusion! ;)
+         if(t<0.2){
+            return 1; 
+         }
+      }
+      return 0;
+
+      // Realmente el gain se puede calcular con algo como lo siguiente 
+      // pero esto hace fft y está consumiendo mucha CPU y en nuestro 
+      // caso no necesitamos algo preciso.
+      //
+      // var l = this.analizador.frequencyBinCount;
+      // var data = new Float32Array(l);
+      // this.analizador.getFloatTimeDomainData(data);
+      //
+      // var gain = 0;
+      // for(var i=0; i<l; i++) {
+      //    gain += (data[i]);
+      // }
+      // gain = gain / l;
+      // return gain;
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};

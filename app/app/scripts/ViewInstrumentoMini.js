@@ -53,6 +53,8 @@
       this.border = null;
 
       this.mouseEstaEncima = false;
+      // this.colorAnterior = null;
+      this.gainAnterior = 0;
 
       this.dibujar();
 
@@ -75,8 +77,6 @@
          colores: colores
       });
    };
-   
-
 
    /** 
     * @function dibujar
@@ -105,8 +105,6 @@
       stage.add(layer);
    };
 
-
-
    /** 
     * @function update
     * @public
@@ -117,21 +115,18 @@
       }
 
       var g = this.audioInstrumento.getGain(tiempoAudio);
-      var color;
-      if(g>0.01){
-         color = EscuelaDeExperimentos.Utility.interpolarColores(
+      g = Math.round(g*10)/10;
+      if(this.gainAnterior!==g){
+         var color = EscuelaDeExperimentos.Utility.interpolarColores(
             this.colores.fondo, 
             this.colores.bordes, 
             g
          );
+         this.border.fill(color);
+         this.border.draw();
       }
-      else{
-         color = this.colores.fondo;
-      }
+      this.gainAnterior = g;
 
-      // TODO: Esto está consumiendo demasiada CPU:
-      // this.border.fill(color);
-      // this.border.draw();
    };
 
    ViewInstrumentoMini.prototype.activar = function(){

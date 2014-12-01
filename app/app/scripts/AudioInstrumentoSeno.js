@@ -34,7 +34,7 @@
        * @member sustain
        * @private
        */
-      this.sustain = p.sustain || 0.99;
+      this.sustain = p.sustain || 0.4;
 
       /** 
        * Array de posiblesNotas, que se pueden tocar en las secuencias.
@@ -84,7 +84,7 @@
       gain.gain.setValueAtTime(1, tiempo + duracion*this.sustain);
       gain.gain.linearRampToValueAtTime(0, tiempo + duracion*this.sustain + this.descarga);
 
-      oscilador.stop(tiempo + duracion*0.5 + this.descarga);
+      oscilador.stop(tiempo + duracion*this.sustain + this.descarga);
 
       this.gain = gain;
    };
