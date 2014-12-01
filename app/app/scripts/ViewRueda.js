@@ -66,6 +66,12 @@
       this.polifonico = p.polifonico || false;
 
       /** 
+       * Texto del centro de la rueda donde se muestra el nombre de las notas
+       * @member texto
+       */
+      this.texto = null;
+
+      /** 
        * Cada elemento de este array es una "columna" o "radio" de botones 
        * @member botones
        */
@@ -77,6 +83,8 @@
       this.columnaDestacada = 0;
 
       this.layer = null;
+
+      this.layerTexto = null;
 
       this.dibujar();
 
@@ -95,10 +103,19 @@
    };
 
    ViewRueda.prototype.mouseover = function(e){
-      var btn = e.target;
+      var btn = e.target
       btn.fill(this.colores.fondoDestacado);
       btn.draw();
       document.body.style.cursor = 'pointer';
+
+      if(this.audioInstrumento.posiblesNotas){
+         var nota = this.audioInstrumento.posiblesNotas[btn.fila];
+         if(nota){
+            var num = EscuelaDeExperimentos.Midi.note2number(nota);
+            this.texto.text(nota + '\n('+ num + ')');
+            this.texto.draw();
+         }
+      }
    };
 
    ViewRueda.prototype.mouseout = function(e){
@@ -117,6 +134,12 @@
       }
       btn.draw();
       document.body.style.cursor = 'default';
+
+      if(this.texto.getText() !== ''){
+         this.texto.text('');
+         this.texto.draw();
+         this.layerTexto.draw();
+      }
    };
 
    /** 
@@ -184,7 +207,25 @@
       this.layer = new Kinetic.Layer({
          listening: this.interactivo
       });
+      this.layerTexto = new Kinetic.Layer({
+         listening: this.interactivo
+      });
       var w = this.width;
+
+      this.texto = new Kinetic.Text({
+         x: this.x - 30,
+         y: this.y - 25,
+         width: 60,
+         // text: 'A2\n(23)',
+         text: '',
+         fill: this.colores.bordes,
+         fontSize: 30,
+         fontFamily: 'Iceland',
+         align: 'center',
+         lineHeight: 0.7
+      });
+      this.layerTexto.add(this.texto);
+      stage.add(this.layerTexto);
 
       // Magnitudes botones en radio
       var cuantosBotonesPorRadio = this.cuantasNotas;
@@ -279,11 +320,10 @@
       if(cualColumna !== this.columnaDestacada){
          this._destacarColumna(this.columnaDestacada, false);
          this._destacarColumna(cualColumna, true);
-
          this.columnaDestacada = cualColumna;
       }
    };
-                                                  
+
    ViewRueda.prototype._destacarColumna = function(cualColumna, bool){
       var columna = this.botones[cualColumna];
       var len = columna.length;
@@ -305,7 +345,6 @@
             else{
                boton.fill(this.colores.fondo);
             }
-
          }
          boton.draw();
       }
