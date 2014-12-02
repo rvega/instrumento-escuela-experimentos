@@ -26,9 +26,9 @@
 
    ViewControles.prototype.template = [
       '<div id="controles">',
-         '<button class="boton" id="stop" type="button"><img src="styles/img/stop.png"/></button>',
-         '<button class="boton" id="play" type="button"><img src="styles/img/play.png"/></button>',
-         '<img id="tempo-icon" src="styles/img/tempo.png"><div id="knob-tempo"></div>',
+         '<button class="boton" id="stop" type="button"><img src="{{PATH}}/styles/img/stop.png"/></button>',
+         '<button class="boton" id="play" type="button"><img src="{{PATH}}/styles/img/play.png"/></button>',
+         '<img id="tempo-icon" src="{{PATH}}/styles/img/tempo.png"><div id="knob-tempo"></div>',
       '</div>'
    ].join('\n');
 
@@ -38,15 +38,20 @@
     */
    ViewControles.prototype.dibujar = function(){
       var container = document.getElementById(this.superView.htmlContainer);
-      $(container).prepend(this.template);
+      var html = this.template.replace(/{{PATH}}/g, this.audioGraph.app.path);
+      $(container).prepend(html);
 
-      new EscuelaDeExperimentos.ViewKnob({
+      this.knobTempo = new EscuelaDeExperimentos.ViewKnob({
          htmlContainer: 'knob-tempo',
          changedCallback: this.tempoChange.bind(this),
-         minValue: 60,
-         maxValue: 240,
-         value: 120,
-         step: 1
+         minValue: 60*4,
+         maxValue: 180*4,
+         value: 120*4,
+         step: 1,
+         path: this.audioGraph.app.path,
+         valueFormat: function(val){
+            return Math.round(val/4);
+         }
       });
 
       $('#play').on('mouseup touchdown', this.play.bind(this));

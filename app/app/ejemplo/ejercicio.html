@@ -1,0 +1,199 @@
+<!doctype html>
+<html>
+<head>
+   <meta charset="utf-8">
+   <title>Ejercicio | Instrumento Escuela de Experimentos</title>
+
+   <!-- build:css(.) styles/vendor.css -->
+   <!-- bower:css -->
+   <!-- endbower -->
+   <!-- endbuild -->
+
+   <!-- build:css(.tmp) styles/main.css -->
+   <link rel="stylesheet" href="../styles/main.css">
+   <link rel="stylesheet" href="../styles/knob.css">
+   <!-- endbuild -->
+
+   <style type="text/css" media="all">
+      html, body{
+         margin: 0px;
+         padding: 0px;
+         background-color: #EEE;
+      }   
+
+      #content{
+         max-width: 800px;
+         margin: 10px auto;
+      }
+
+      #instrumento{
+         border-radius: 4px;
+      }
+
+      h1, h2, h3, p{
+         font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+         margin: 0px 0px 5px 0px;
+      }
+
+      p{
+         font-size: 16px; 
+      }
+
+      h1{
+         font-size: 36px;
+         font-weight: bold;
+         letter-spacing: -1.5px;
+      }
+
+      h2{
+         font-size: 26px;
+         font-weight: bold;
+         letter-spacing: -1.0px;
+      }
+
+      h3{
+         font-size: 20px;
+         font-weight: bold;
+         /* letter-spacing: -1.0px; */
+      }
+
+      .boton:hover{
+         cursor: pointer;
+      }
+
+      .boton:active{
+         background: #222;
+      }
+
+      .boton:focus,
+      #stop:focus{
+         border: 1px solid #fe711b;
+      }
+
+      .boton{
+         font-weight: bold;
+         color: #CFCFCF;
+         margin: 0px;
+         padding:0px 5px;
+         border: 1px solid #000;
+         border-radius:2px;
+         height: 31px;
+
+         background: #838383;
+         background: -moz-linear-gradient(top, #838383 11%, #525252 100%);
+         background: -webkit-gradient(linear, left top, left bottom, color-stop(11%,#838383), color-stop(100%,#525252));
+         background: -webkit-linear-gradient(top, #838383 11%,#525252 100%);
+         background: -o-linear-gradient(top, #838383 11%,#525252 100%);
+         background: -ms-linear-gradient(top, #838383 11%,#525252 100%);
+         background: linear-gradient(to bottom, #838383 11%,#525252 100%);
+         filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#838383', endColorstr='#525252',GradientType=0 );
+
+         outline: none;
+      }
+
+      #solucion{
+         display:none;
+      }
+
+   </style>
+</head>
+<body>
+   <div id="content">
+      <h1>Instrumento Musical Escuela de Experimentos</h1>
+      <h2>Ejemplo de ejercicio didáctico</h2>
+      <hr>
+      <h3>Ejercicio.</h3>
+      <p>
+         Primero, escucha el rítmo dandole play al reproductor.
+      </p>
+      <p> 
+         <audio controls="true" preload="auto">
+            <source src="ejercicio.ogg"/> 
+            <source src="ejercicio.mp3"/> 
+         </audio> 
+      </p>
+
+      <p>
+         Luego intenta imitarlo con el instrumento de percusión (amarillo). Cuando creas que lo tienes listo, estripa el botón que dice "Listo!".
+      </p>
+      <p>
+         <button class="boton" id="listo" type="button">Listo!</button>
+      </p>
+
+      <hr />
+
+      <div id="instrumento"></div>
+      <p id="solucion">
+         No lo lograste. Mira la solución: <br /> <img src="solucion.png" alt=""/>
+      </p>
+
+      <hr />
+      <p><a href="../">Principal</a>.</p>
+   </div>
+
+   <!-- build:js(.) scripts/vendor.js -->
+   <!-- bower:js -->
+   <script src="../bower_components/jquery/dist/jquery.js"></script>
+   <script src="../bower_components/kineticjs/kinetic.js"></script>
+   <!-- endbower -->
+   <script src="../vendors/web-audio-monkey-patch/webkitAudioContextMonkeyPatch.js"></script>
+   <!-- endbuild -->
+
+   <!-- build:js({app,.tmp}) scripts/instrumento-escuela-experimentos.js -->
+   <script src="../scripts/Utility.js"></script>
+   <script src="../scripts/Midi.js"></script>
+
+   <script src="../scripts/AudioMixinInstrumentoMonofonico.js"></script>
+   <script src="../scripts/AudioInstrumentoBajo.js"></script>
+   <script src="../scripts/AudioInstrumentoSeno.js"></script>
+   <script src="../scripts/AudioInstrumentoSample.js"></script>
+   <script src="../scripts/AudioInstrumentoBateria.js"></script>
+   <script src="../scripts/AudioInstrumentoLead.js"></script>
+   <script src="../scripts/AudioGraph.js"></script>
+
+   <script src="../scripts/ViewKnob.js"></script>
+   <script src="../scripts/ViewControles.js"></script>
+   <script src="../scripts/ViewRueda.js"></script>
+   <script src="../scripts/ViewInstrumentoMini.js"></script>
+   <script src="../scripts/ViewInstrumento.js"></script>
+   <script src="../scripts/ViewMain.js"></script>
+
+   <script src="../scripts/Main.js"></script>
+   <!-- endbuild -->
+
+   <script type="text/javascript" charset="utf-8">
+      numIntentos = 0;
+
+      clickedListo = function(e){
+         var estado = instrumento.getEstado();
+         var correcto = JSON.parse('{"tempo":320,"instrumentos":{"bajo":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],"lead":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],"bateria":[[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1,-1,-1,1,-1],[1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,1,-1,-1,-1,-1,-1,-1,-1,1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[1,-1,1,1,1,-1,1,1,1,-1,1,1,1,-1,1,1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]],"seno3":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],"seno4":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],"seno5":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],"seno6":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]} }');
+         // var correcto = JSON.parse('{"tempo":320,"instrumentos":{"bajo":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],"lead":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],"bateria":[[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]],"seno3":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],"seno4":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],"seno5":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1],"seno6":[-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]} }');
+
+         if(EscuelaDeExperimentos.InstrumentoWeb.compararEstados( estado, correcto)==1){
+            alert("Muy bien!!");
+         }
+         else{
+            numIntentos++;
+            if(numIntentos>=3){
+               $('#instrumento').hide(); 
+               $('#solucion').show(); 
+               instrumento.stop();
+            }
+            else{
+               alert('Intentalo de nuevo. Te quedan ' + (3-numIntentos) + ' intentos.' );
+            }
+         }
+      };
+
+      window.onload = function(e){
+         instrumento = new EscuelaDeExperimentos.InstrumentoWeb({
+            htmlContainer:'instrumento',
+            path: '../'
+         });
+         instrumento.setTempo(80);
+
+         document.getElementById('listo').onclick = clickedListo;
+      };
+   </script>
+</body>
+</html>

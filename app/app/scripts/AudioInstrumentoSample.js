@@ -9,6 +9,8 @@
    var AudioInstrumentoSample = function(params){
       var p = params || {};
 
+      this.audioGraph = p.audioGraph;
+
       /** 
        * @member wave
        * @private
@@ -39,10 +41,10 @@
       var canPlayMp3 = !!(a.canPlayType && a.canPlayType('audio/mpeg;').replace(/no/, ''));
       var url;
       if(canPlayOgg){
-         url = 'waves/' + this.wave + '.ogg';
+         url = this.audioGraph.app.path + 'waves/' + this.wave + '.ogg';
       }
       else if(canPlayMp3){
-         url = 'waves/' + this.wave + '.mp3';
+         url = this.audioGraph.app.path + 'waves/' + this.wave + '.mp3';
       }
       // TODO: else ??
       
@@ -78,7 +80,7 @@
       source.buffer = this.buffer;
       source.connect(this.nodoVolumen);
       source.start(tiempo); 
-      source.stop(tiempo + 3*duracion);
+      source.stop(tiempo + 10*duracion);
       
       // source.connect(this.analizador);
    };

@@ -13,7 +13,7 @@
        * "Registro" del instrumento
        * @member cuantasNotas
        */
-      this.cuantasNotas = p.cuantasNotas || 4;
+      this.cuantasNotas = p.cuantasNotas || 12;
 
       /**
        * Longitud de la secuencia 
@@ -44,7 +44,7 @@
          audioGraph: this.audioGraph,
          cuantasNotas: 1,
          cuantosTiempos: 16,
-         wave: 'snare',
+         wave: 'kick',
          volumen: p.volumen
       });
       this.voces.push(voz);
@@ -53,7 +53,7 @@
          audioGraph: this.audioGraph,
          cuantasNotas: 1,
          cuantosTiempos: 16,
-         wave: 'kick',
+         wave: 'snare',
          volumen: p.volumen
       });
       this.voces.push(voz);
@@ -75,6 +75,80 @@
          volumen: p.volumen
       });
       this.voces.push(voz);
+
+      voz = new EscuelaDeExperimentos.AudioInstrumentoSample({
+         audioGraph: this.audioGraph,
+         cuantasNotas: 1,
+         cuantosTiempos: 16,
+         wave: 'crash',
+         volumen: p.volumen
+      });
+      this.voces.push(voz);
+
+      voz = new EscuelaDeExperimentos.AudioInstrumentoSample({
+         audioGraph: this.audioGraph,
+         cuantasNotas: 1,
+         cuantosTiempos: 16,
+         wave: 'tom1',
+         volumen: p.volumen
+      });
+      this.voces.push(voz);
+
+      voz = new EscuelaDeExperimentos.AudioInstrumentoSample({
+         audioGraph: this.audioGraph,
+         cuantasNotas: 1,
+         cuantosTiempos: 16,
+         wave: 'tom2',
+         volumen: p.volumen
+      });
+      this.voces.push(voz);
+
+      voz = new EscuelaDeExperimentos.AudioInstrumentoSample({
+         audioGraph: this.audioGraph,
+         cuantasNotas: 1,
+         cuantosTiempos: 16,
+         wave: 'tom3',
+         volumen: p.volumen
+      });
+      this.voces.push(voz);
+
+      voz = new EscuelaDeExperimentos.AudioInstrumentoSample({
+         audioGraph: this.audioGraph,
+         cuantasNotas: 1,
+         cuantosTiempos: 16,
+         wave: 'clap',
+         volumen: p.volumen
+      });
+      this.voces.push(voz);
+
+      voz = new EscuelaDeExperimentos.AudioInstrumentoSample({
+         audioGraph: this.audioGraph,
+         cuantasNotas: 1,
+         cuantosTiempos: 16,
+         wave: 'guiro',
+         volumen: p.volumen
+      });
+      this.voces.push(voz);
+
+      voz = new EscuelaDeExperimentos.AudioInstrumentoSample({
+         audioGraph: this.audioGraph,
+         cuantasNotas: 1,
+         cuantosTiempos: 16,
+         wave: 'shaker',
+         volumen: p.volumen
+      });
+      this.voces.push(voz);
+
+      voz = new EscuelaDeExperimentos.AudioInstrumentoSample({
+         audioGraph: this.audioGraph,
+         cuantasNotas: 1,
+         cuantosTiempos: 16,
+         wave: 'tambourine',
+         volumen: p.volumen
+      });
+      this.voces.push(voz);
+
+
    };
    
    /** 
@@ -129,6 +203,15 @@
 
       suma = suma/this.voces.length;
       return suma>1 ? 1 : suma;
+   };
+
+   AudioInstrumentoBateria.prototype.getSecuencia = function(){
+      var sec = [];
+      for(var i in this.voces){
+         var voz = this.voces[i];
+         sec.push(voz.getSecuencia());
+      }
+      return sec;
    };
 
    /** 

@@ -36,7 +36,8 @@
       this.label = p.label || '';
       this.customFormatValue = p.valueFormat || null;
 
-      this.sprite = p.sprite || 'styles/img/knob.png';
+      this.path = p.path || './';
+      this.sprite = p.sprite || this.path+'styles/img/knob.png';
       this.spriteCount =  p.spriteCount || 120;
       this.spriteInitialAngle =  p.spriteInitialAngle || 0;
       this.spriteWidth =  p.spriteWidth || 100;

@@ -12,6 +12,11 @@
    var AudioGraph = function(params){
       var p = params || {};
 
+      /**
+       * La aplicación que contiene esto objeto
+       */
+      this.app = p.app;
+
       /** 
        * Ver https://developer.mozilla.org/en-US/docs/Web/API/AudioContext
        * @member audioContext
@@ -32,7 +37,7 @@
        * Tempo en beats por minuto
        * @member tempo
        */
-      this.tempo = p.tempo || 120;
+      this.tempo = p.tempo*4 || 120*4;
 
 
       /** 

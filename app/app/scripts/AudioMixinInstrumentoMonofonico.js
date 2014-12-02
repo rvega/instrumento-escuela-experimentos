@@ -219,6 +219,10 @@
       this.nodoVolumen.gain.setValueAtTime(this.volumen, ctx.currentTime);
       this.nodoVolumen.connect(nodo);
    };
+
+   AudioMixinInstrumentoMonofonico.getSecuencia = function(){
+      return this.secuencia;
+   };
    
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
    global.EscuelaDeExperimentos.AudioMixinInstrumentoMonofonico = AudioMixinInstrumentoMonofonico;

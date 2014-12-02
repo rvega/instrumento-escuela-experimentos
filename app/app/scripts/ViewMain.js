@@ -41,7 +41,7 @@
    };
 
    ViewMain.prototype.initSubviews = function(){
-      new EscuelaDeExperimentos.ViewControles({
+      this.controles = new EscuelaDeExperimentos.ViewControles({
          audioGraph: this.audioGraph,
          superView: this
       });
@@ -53,7 +53,7 @@
          audioInstrumento: instrumentos.bateria, 
          activo:true,
          polifonico: true,
-         cuantasNotasMini: 3,
+         cuantasNotasMini: 5,
          colores:{
             fondo: '#333333',
             fondoCardinal: '#262626',
@@ -67,6 +67,7 @@
          i:1, 
          nombreInstancia: 'bajo', 
          audioInstrumento: instrumentos.bajo, 
+         cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',
             fondoCardinal: '#262626',
@@ -81,6 +82,7 @@
          i:2, 
          nombreInstancia: 'lead', 
          audioInstrumento: instrumentos.lead, 
+         cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',
             fondoCardinal: '#262626',
@@ -96,6 +98,7 @@
          i:3, 
          nombreInstancia: 'seno3', 
          audioInstrumento: instrumentos.seno3, 
+         cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',
             fondoCardinal: '#262626',
@@ -110,6 +113,7 @@
          i:4, 
          nombreInstancia: 'seno4', 
          audioInstrumento: instrumentos.seno4, 
+         cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',
             fondoCardinal: '#262626',
@@ -124,6 +128,7 @@
          i:5, 
          nombreInstancia: 'seno5', 
          audioInstrumento: instrumentos.seno5, 
+         cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',
             fondoCardinal: '#262626',
@@ -138,6 +143,7 @@
          i:6, 
          nombreInstancia: 'seno6', 
          audioInstrumento: instrumentos.seno6, 
+         cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',
             fondoCardinal: '#262626',
