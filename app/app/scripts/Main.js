@@ -95,6 +95,7 @@
     * @function setEstado
     */
    InstrumentoWeb.prototype.setEstado = function(obj){ 
+      // jshint unused:false
       throw new Error('InstrumentoWeb.setEstado: Esta función no se ha implementado aún.');
        
    };
@@ -149,6 +150,7 @@
     * @function onChangeState
     */
    InstrumentoWeb.prototype.onChangeState = function(callback){ 
+      // jshint unused:false
       throw new Error('InstrumentoWeb.onChangeState: Esta función no se ha implementado aún.');
    };
 

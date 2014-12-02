@@ -4,9 +4,9 @@
    'use strict';
 
    /** 
-    * @constructor AudioInstrumentoSeno
+    * @constructor AudioInstrumentoArmonico
     */
-   var AudioInstrumentoSeno = function(params){
+   var AudioInstrumentoArmonico = function(params){
       var p = params || {};
 
       /** 
@@ -20,14 +20,14 @@
        * @member ataque
        * @private
        */
-      this.ataque = p.ataque || 0.01;
+      this.ataque = p.ataque || 0.2;
 
       /** 
        * Tiempo de descarga en segs
        * @member descarga
        * @private
        */
-      this.descarga = p.descarga || 0.6;
+      this.descarga = p.descarga || 0.400;
 
       /** 
        * Tiempo de sustain (porcentaje de la duracion de la nota segun el tempo)
@@ -51,14 +51,14 @@
    };
    
    // Heredar los métodos de MixinInstrumentoMonofonico
-   EscuelaDeExperimentos.Utility.mixin(AudioInstrumentoSeno.prototype, EscuelaDeExperimentos.AudioMixinInstrumentoMonofonico);
+   EscuelaDeExperimentos.Utility.mixin(AudioInstrumentoArmonico.prototype, EscuelaDeExperimentos.AudioMixinInstrumentoMonofonico);
 
    /** 
     * Suena una nota.
     * @private
     * @method tocarNota
     */
-   AudioInstrumentoSeno.prototype.tocarNota = function(tiempo, duracion, cualNota){
+   AudioInstrumentoArmonico.prototype.tocarNota = function(tiempo, duracion, cualNota){
       if(cualNota === -1){
          return;
       }
@@ -68,15 +68,21 @@
       var ctx = this.audioGraph.audioContext;
 
       var oscilador = ctx.createOscillator();
+      var oscilador2 = ctx.createOscillator();
       var gain = ctx.createGain();
 
-      oscilador.type = 'sawtooth';
+      oscilador.type = 'sine';
+      oscilador2.type = 'sine';
+      oscilador2.detune = 2;
 
       oscilador.connect(gain);
+      oscilador2.connect(gain);
       gain.connect(this.nodoVolumen);
       
       oscilador.frequency.setValueAtTime(frecuencia, tiempo);
+      oscilador2.frequency.setValueAtTime(frecuencia, tiempo);
       oscilador.start(tiempo);
+      oscilador2.start(tiempo);
 
       gain.gain.setValueAtTime(0, tiempo);
       gain.gain.linearRampToValueAtTime(1, tiempo+this.ataque);
@@ -85,12 +91,13 @@
       gain.gain.linearRampToValueAtTime(0, tiempo + duracion*this.sustain + this.descarga);
 
       oscilador.stop(tiempo + duracion*this.sustain + this.descarga);
+      oscilador2.stop(tiempo + duracion*this.sustain + this.descarga);
 
       this.gain = gain;
    };
 
 
-   AudioInstrumentoSeno.prototype.getGain = function(){
+   AudioInstrumentoArmonico.prototype.getGain = function(){
       if(this.gain===null){
          return 0;
       }
@@ -98,5 +105,5 @@
    };
 
    global.EscuelaDeExperimentos = global.EscuelaDeExperimentos || {};
-   global.EscuelaDeExperimentos.AudioInstrumentoSeno = AudioInstrumentoSeno;
+   global.EscuelaDeExperimentos.AudioInstrumentoArmonico = AudioInstrumentoArmonico;
 })(this);

@@ -80,8 +80,8 @@
 
       this.crearInstrumentoView({
          i:2, 
-         nombreInstancia: 'lead', 
-         audioInstrumento: instrumentos.lead, 
+         nombreInstancia: 'armonico1', 
+         audioInstrumento: instrumentos.armonico1, 
          cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',
@@ -96,8 +96,8 @@
 
       this.crearInstrumentoView({
          i:3, 
-         nombreInstancia: 'seno3', 
-         audioInstrumento: instrumentos.seno3, 
+         nombreInstancia: 'armonico2', 
+         audioInstrumento: instrumentos.armonico2, 
          cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',
@@ -111,8 +111,8 @@
 
       this.crearInstrumentoView({
          i:4, 
-         nombreInstancia: 'seno4', 
-         audioInstrumento: instrumentos.seno4, 
+         nombreInstancia: 'armonico3', 
+         audioInstrumento: instrumentos.armonico3, 
          cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',
@@ -126,8 +126,8 @@
 
       this.crearInstrumentoView({
          i:5, 
-         nombreInstancia: 'seno5', 
-         audioInstrumento: instrumentos.seno5, 
+         nombreInstancia: 'chime', 
+         audioInstrumento: instrumentos.chime, 
          cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',
@@ -141,8 +141,8 @@
 
       this.crearInstrumentoView({
          i:6, 
-         nombreInstancia: 'seno6', 
-         audioInstrumento: instrumentos.seno6, 
+         nombreInstancia: 'lead', 
+         audioInstrumento: instrumentos.lead, 
          cuantasNotasMini: 3,
          colores:{
             fondo: '#333333',

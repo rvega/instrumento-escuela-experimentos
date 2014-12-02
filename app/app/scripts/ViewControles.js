@@ -45,7 +45,7 @@
          htmlContainer: 'knob-tempo',
          changedCallback: this.tempoChange.bind(this),
          minValue: 60*4,
-         maxValue: 180*4,
+         maxValue: 140*4,
          value: 120*4,
          step: 1,
          path: this.audioGraph.app.path,
