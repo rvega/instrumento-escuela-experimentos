@@ -44,7 +44,7 @@
        * Periodo para correr el planificador de eventos. Segundos
        * @member periodoTick
        */
-      this.periodoTick = p.periodoTick || 0.010;
+      this.periodoTick = p.periodoTick || 0.001;
 
 
       /** 
@@ -65,7 +65,7 @@
       var unBajo = new EscuelaDeExperimentos.AudioInstrumentoBajo({
          audioGraph: this,
          cuantosTiempos: 16,
-         volumen: 0.4,
+         volumen: 0.6,
       });
       unBajo.conectar(this.audioContext.destination);
       this.instrumentos.bajo = unBajo;

@@ -54,7 +54,7 @@
        * @member tiempoMirarFuturo
        * @private
        */
-      this.tiempoMirarFuturo = 0.050;
+      this.tiempoMirarFuturo = 0.100;
 
       /** 
        * Cuando empezó a sonar la nota actual.
